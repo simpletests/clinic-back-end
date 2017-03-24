@@ -1,0 +1,54 @@
+<div class="mdl-cell mdl-cell--2-col">
+    <a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
+       href="#pacienteForm" >Novo</a>
+</div>
+<div class="mdl-cell mdl-cell--4-col mdl-cell--6-offset " >
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable"
+         style="width:100%">
+        <label class="mdl-button mdl-js-button mdl-button--icon" for="pesquisa">
+            <i class="material-icons" >search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder"  >
+            <input class="mdl-textfield__input"  type="text" id="pesquisa" >
+            <label class="mdl-textfield__label" >Expandable input</label>
+        </div>
+    </div>
+</div>
+<table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-cell mdl-cell--12-col">
+    <thead>
+        <tr>
+            <th onclick="toggleSorting($(this))"
+                class="mdl-data-table__cell--non-numeric mdl-data-table__header--sorted-descending">Nome</th>
+            <th onclick="toggleSorting($(this))"
+                class="mdl-data-table__cell--non-numeric mdl-">E-mail</th>
+            <th onclick="toggleSorting($(this))"
+                class="mdl-data-table__cell--non-numeric">Endereço</th>
+            <th onclick="toggleSorting($(this))"
+                class="mdl-data-table__cell--non-numeric">Sexo</th>
+            <th >Idade</th>
+        </tr>
+    </thead>
+    <tbody ng-repeat="paciente in pacientes">
+        <tr>
+            <td class="mdl-data-table__cell--non-numeric"
+                ng-bind="paciente.nome" ></td>
+            <td class="mdl-data-table__cell--non-numeric"
+                ng-bind="paciente.email"></td>
+            <td class="mdl-data-table__cell--non-numeric"
+                ng-bind="paciente.rua"></td>
+            <td class="mdl-data-table__cell--non-numeric"
+                ng-bind="paciente.sexo"></td>
+            <td ng-bind="paciente.idade"></td>
+            <td class="columIcon" >
+                <button id="edit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+                    <i class="material-icons" >edit</i>
+                </button>
+            </td>
+            <td class="columIcon" >
+                <button id="edit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+                    <i class="material-icons">delete</i>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
