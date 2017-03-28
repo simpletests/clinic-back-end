@@ -3,6 +3,7 @@ package hello;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,12 +16,13 @@ import org.springframework.web.util.UriComponentsBuilder;
  * @author tomaslm
  */
 @RestController
+@RequestMapping("/paciente")
 public class PacienteController {
 
     @Autowired
     PacienteRepository pacienteRepository;
 
-    @RequestMapping(value = "/paciente", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity<Iterable<Paciente>> getLista() {
         Iterable<Paciente> pacientes = pacienteRepository.findAll();
         if (pacientes.iterator().hasNext()) {
@@ -30,7 +32,7 @@ public class PacienteController {
         }
     }
 
-    @RequestMapping(value = "/paciente/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Paciente> findById(@PathVariable("id") long id) {
         Paciente paciente = pacienteRepository.findOne(id);
         if (paciente != null) {
@@ -40,7 +42,7 @@ public class PacienteController {
         }
     }
 
-    @RequestMapping(value = "/paciente", method = RequestMethod.POST)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public void createPaciente(@RequestBody Paciente paciente, UriComponentsBuilder uriBuilder) {
         paciente = pacienteRepository.save(paciente);
         if (paciente != null) {
@@ -48,8 +50,9 @@ public class PacienteController {
         }
     }
 
-    @RequestMapping(value = "/paciente/{id}", method = RequestMethod.DELETE)
-    public void deletePaciente(@PathVariable("id") long id) {
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity deletePaciente(@PathVariable("id") long id) {
         pacienteRepository.delete(id);
+        return ResponseEntity.ok(id);
     }
 }
