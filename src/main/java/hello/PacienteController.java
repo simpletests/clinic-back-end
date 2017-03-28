@@ -40,19 +40,16 @@ public class PacienteController {
         }
     }
 
-    @RequestMapping(value = "/paciente/")
-    public ResponseEntity<Void> createPaciente(@RequestBody Paciente paciente, UriComponentsBuilder uriBuilder) {
+    @RequestMapping(value = "/paciente", method = RequestMethod.POST)
+    public void createPaciente(@RequestBody Paciente paciente, UriComponentsBuilder uriBuilder) {
         paciente = pacienteRepository.save(paciente);
         if (paciente != null) {
-            return new ResponseEntity(HttpStatus.CREATED);
         } else {
-            return new ResponseEntity(HttpStatus.CONFLICT);
         }
     }
 
     @RequestMapping(value = "/paciente/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Paciente> deletePaciente(@PathVariable("id") long id) {
+    public void deletePaciente(@PathVariable("id") long id) {
         pacienteRepository.delete(id);
-        return new ResponseEntity(HttpStatus.OK);
     }
 }
