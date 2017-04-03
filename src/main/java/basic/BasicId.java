@@ -1,4 +1,4 @@
-package hello;
+package basic;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

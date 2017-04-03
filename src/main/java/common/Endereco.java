@@ -1,12 +1,17 @@
-package hello;
+package common;
 
+import basic.BasicId;
 import javax.persistence.Entity;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 /**
  *
  * @author tomaslm
  */
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Endereco extends BasicId {
 
     String pais;

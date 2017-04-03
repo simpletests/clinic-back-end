@@ -15,6 +15,7 @@
  */
 package hello;
 
+import paciente.PacienteRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -130,6 +131,8 @@ public class ApplicationTests {
     @Test
     public void insertData() {
         System.out.println("Inserting data...");
+//        pacienteRepository.save(new Paciente("Tomas", "tomaslm@hotmail.com", new Endereco(),
+//                22, Sexo.MASCULINO, "3202-3063", "99222-1131"))
         System.out.println("Done inserting data...");
     }
 }
