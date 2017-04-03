@@ -1,4 +1,4 @@
-package basic;
+package clinic.basic;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,5 +18,5 @@ public class BasicId {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 }

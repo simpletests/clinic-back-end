@@ -1,6 +1,6 @@
-package common;
+package clinic.common;
 
-import basic.BasicId;
+import clinic.basic.BasicId;
 import javax.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

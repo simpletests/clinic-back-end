@@ -14,29 +14,18 @@
  * limitations under the License.
  */
 package hello;
+//@SpringBootTest
+//@AutoConfigureMockMvc
 
-import paciente.PacienteRepository;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-
-@RunWith(SpringRunner.class)
-@SpringBootTest
-@AutoConfigureMockMvc
 public class ApplicationTests {
 
-    @Autowired
-    private PacienteRepository pacienteRepository;
-
-    @Before
-    public void deleteAllBeforeTests() throws Exception {
-        pacienteRepository.deleteAll();
-    }
-
+//    @Autowired
+//    private PacienteRepository pacienteRepository;
+//
+//    @Before
+//    public void deleteAllBeforeTests() throws Exception {
+//        pacienteRepository.deleteAll();
+//    }
 //    @Test
 //    public void shouldReturnRepositoryIndex() throws Exception {
 //
@@ -128,11 +117,9 @@ public class ApplicationTests {
 //
 //        mockMvc.perform(get(location)).andExpect(status().isNotFound());
 //    }
-    @Test
-    public void insertData() {
-        System.out.println("Inserting data...");
-//        pacienteRepository.save(new Paciente("Tomas", "tomaslm@hotmail.com", new Endereco(),
-//                22, Sexo.MASCULINO, "3202-3063", "99222-1131"))
-        System.out.println("Done inserting data...");
-    }
+//    @Test
+//    public void insertData() {
+//        System.out.println("Inserting data...");
+//        System.out.println("Done inserting data...");
+//    }
 }

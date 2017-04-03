@@ -1,8 +1,8 @@
-package paciente;
+package clinic.paciente;
 
-import common.Sexo;
-import common.Endereco;
-import basic.BasicId;
+import clinic.common.Sexo;
+import clinic.common.Endereco;
+import clinic.basic.BasicId;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import lombok.AllArgsConstructor;
