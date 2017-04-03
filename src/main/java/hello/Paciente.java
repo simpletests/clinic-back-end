@@ -1,11 +1,7 @@
 package hello;
 
-import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,17 +16,14 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Paciente {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+public class Paciente extends BasicId {
 
     private String nome;
     private String email;
-    private String endereco;
+    @OneToOne
+    private Endereco endereco;
     private Integer idade;
-    private String sexo;
-    @OneToMany
-    private List<Paciente> pai;
+    private Sexo sexo;
+    private String telefoneFixo;
+    private String telefoneCelular;
 }

@@ -15,7 +15,10 @@
  */
 package hello;
 
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -25,17 +28,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 @AutoConfigureMockMvc
 public class ApplicationTests {
 
-//    @Autowired
-//    private MockMvc mockMvc;
-//
-//    @Autowired
-//    private PersonRepository personRepository;
-//
-//    @Before
-//    public void deleteAllBeforeTests() throws Exception {
-//        personRepository.deleteAll();
-//    }
-//
+    @Autowired
+    private PacienteRepository pacienteRepository;
+
+    @Before
+    public void deleteAllBeforeTests() throws Exception {
+        pacienteRepository.deleteAll();
+    }
+
 //    @Test
 //    public void shouldReturnRepositoryIndex() throws Exception {
 //
@@ -127,15 +127,9 @@ public class ApplicationTests {
 //
 //        mockMvc.perform(get(location)).andExpect(status().isNotFound());
 //    }
-//
-//    @Test
-//    public void insertData() {
-//        System.out.println("Inserting data...");
-//        personRepository.save(new Person(0, "Tomas", "Menito"));
-//        personRepository.save(new Person(0, "Carlos", "Menito"));
-//        personRepository.save(new Person(0, "Marcos", "Silva"));
-//        personRepository.save(new Person(0, "Roberto", "Santos"));
-//        personRepository.save(new Person(0, "José", "Labella"));
-//        System.out.println("Done inserting data...");
-//    }
+    @Test
+    public void insertData() {
+        System.out.println("Inserting data...");
+        System.out.println("Done inserting data...");
+    }
 }
