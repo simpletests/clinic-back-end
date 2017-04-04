@@ -1,8 +1,9 @@
 package clinic.paciente;
 
-import clinic.common.Sexo;
-import clinic.common.Endereco;
 import clinic.basic.BasicId;
+import clinic.common.Endereco;
+import clinic.common.Sexo;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import lombok.AllArgsConstructor;
@@ -23,7 +24,7 @@ public class Paciente extends BasicId {
 
     private String nome;
     private String email;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Endereco endereco;
     private Integer idade;
     private Sexo sexo;
