@@ -4,6 +4,12 @@ import clinic.common.Endereco;
 import clinic.common.Sexo;
 import clinic.paciente.Paciente;
 import clinic.paciente.PacienteRepository;
+import clinic.usuario.Role;
+import clinic.usuario.RoleRepository;
+import clinic.usuario.User;
+import clinic.usuario.UserRepository;
+import java.util.Arrays;
+import java.util.HashSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -18,6 +24,12 @@ public class ApplicationLoader implements ApplicationListener<ContextRefreshedEv
 
     @Autowired
     private PacienteRepository pacienteRepository;
+    
+    @Autowired
+    private RoleRepository roleRepository;
+    
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent e) {
@@ -33,5 +45,13 @@ public class ApplicationLoader implements ApplicationListener<ContextRefreshedEv
                 new Paciente("Wesley", "wesley@hotmail.com",
                         new Endereco("Rua do Sertão", 250, "apto 3", "São Paulo", "Sertãozinho", "Brasil"),
                         25, Sexo.MASCULINO, "3111-3543", "98742-6985"));
+        
+        Role roleAdmin = new Role("ADMIN", null);
+        roleRepository.save(roleAdmin);
+        
+        User user1 = new User("wesley", "123", new HashSet<>(Arrays.asList(roleAdmin)));
+        User user2 = new User("tomas", "asd", new HashSet<>(Arrays.asList(roleAdmin)));
+        userRepository.save(user1);
+        userRepository.save(user2);
     }
 }

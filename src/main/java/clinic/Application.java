@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @EnableAuthorizationServer
 @EnableResourceServer
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-@EnableWebSecurity
+//@EnableWebSecurity
 @RestController
 public class Application {
     
