@@ -33,6 +33,14 @@ public class ApplicationLoader implements ApplicationListener<ContextRefreshedEv
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent e) {
+        Role roleAdmin = roleRepository.save(new Role("ADMIN", null));
+        Role roleUser = roleRepository.save(new Role("USER", null));
+        
+        User user1 = new User("wesley", "123", new HashSet<>(Arrays.asList(roleAdmin)));
+        User user2 = new User("tomas", "123", new HashSet<>(Arrays.asList(roleUser)));
+        userRepository.save(user1);
+        userRepository.save(user2);
+        
         pacienteRepository.save(
                 new Paciente("Tomas", "tomaslm@hotmail.com",
                         new Endereco("Rua São José", 100, "casa", "São Paulo", "Ribeirão Preto", "Brasil"),
@@ -45,13 +53,5 @@ public class ApplicationLoader implements ApplicationListener<ContextRefreshedEv
                 new Paciente("Wesley", "wesley@hotmail.com",
                         new Endereco("Rua do Sertão", 250, "apto 3", "São Paulo", "Sertãozinho", "Brasil"),
                         25, Sexo.MASCULINO, "3111-3543", "98742-6985"));
-        
-        Role roleAdmin = new Role("ADMIN", null);
-        roleRepository.save(roleAdmin);
-        
-        User user1 = new User("wesley", "123", new HashSet<>(Arrays.asList(roleAdmin)));
-        User user2 = new User("tomas", "asd", new HashSet<>(Arrays.asList(roleAdmin)));
-        userRepository.save(user1);
-        userRepository.save(user2);
     }
 }
