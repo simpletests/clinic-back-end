@@ -25,7 +25,7 @@ public class PacienteController {
     @Autowired
     PacienteRepository pacienteRepository;
 
-    @GetMapping(value = "")
+    @GetMapping
     public ResponseEntity<Iterable<Paciente>> getLista() {
         Iterable<Paciente> pacientes = pacienteRepository.findAll();
         if (pacientes.iterator().hasNext()) {
@@ -45,7 +45,7 @@ public class PacienteController {
         }
     }
 
-    @PostMapping(value = "")
+    @PostMapping
     public void createPaciente(@RequestBody Paciente paciente, UriComponentsBuilder uriBuilder) {
         paciente = pacienteRepository.save(paciente);
         if (paciente != null) {
