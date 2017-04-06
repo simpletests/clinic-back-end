@@ -1,14 +1,13 @@
 package clinic.paciente;
 
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author Tomas
  */
-@RepositoryRestResource(collectionResourceRel = "pacientes", path = "pacientes")
+@Repository//RestResource(collectionResourceRel = "pacientes", path = "pacientes")
 public interface PacienteRepository extends CrudRepository<Paciente, Long> {
 
 }

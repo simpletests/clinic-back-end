@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
-@EnableAuthorizationServer
-@EnableResourceServer
+//@EnableResourceServer
+//@EnableAuthorizationServer
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 //@EnableWebSecurity
 @RestController
