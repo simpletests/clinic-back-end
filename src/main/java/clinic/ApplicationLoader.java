@@ -4,12 +4,10 @@ import clinic.common.Endereco;
 import clinic.common.Sexo;
 import clinic.paciente.Paciente;
 import clinic.paciente.PacienteRepository;
-import clinic.usuario.Role;
-import clinic.usuario.RoleRepository;
-import clinic.usuario.User;
-import clinic.usuario.UserRepository;
-import java.util.Arrays;
-import java.util.HashSet;
+import clinic.usuario.Authorities;
+import clinic.usuario.AuthoritiesRepository;
+import clinic.usuario.Users;
+import clinic.usuario.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -26,20 +24,21 @@ public class ApplicationLoader implements ApplicationListener<ContextRefreshedEv
     private PacienteRepository pacienteRepository;
     
     @Autowired
-    private RoleRepository roleRepository;
+    private UsersRepository usersRepository;
     
     @Autowired
-    private UserRepository userRepository;
-
+    private AuthoritiesRepository authoritiesRepository;
+    
     @Override
     public void onApplicationEvent(ContextRefreshedEvent e) {
-        Role roleAdmin = roleRepository.save(new Role("ADMIN", null));
-        Role roleUser = roleRepository.save(new Role("USER", null));
-        
-        User user1 = new User("wesley", "123", new HashSet<>(Arrays.asList(roleAdmin)));
-        User user2 = new User("tomas", "123", new HashSet<>(Arrays.asList(roleUser)));
-        userRepository.save(user1);
-        userRepository.save(user2);
+        usersRepository.save(new Users("master", "123", true));
+        usersRepository.save(new Users("wesley", "123", true));
+        usersRepository.save(new Users("tomas", "123", true));
+        usersRepository.save(new Users("arthur", "123", true));
+        authoritiesRepository.save(new Authorities("master", "MASTER"));
+        authoritiesRepository.save(new Authorities("wesley", "MEDICO"));
+        authoritiesRepository.save(new Authorities("tomas", "MEDICO"));
+        authoritiesRepository.save(new Authorities("arthur", "SECRETARIA"));
         
         pacienteRepository.save(
                 new Paciente("Tomas", "tomaslm@hotmail.com",
