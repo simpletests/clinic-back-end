@@ -1,5 +1,7 @@
 package clinic.paciente;
 
+import clinic.usuario.Usuario;
+import clinic.usuario.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,9 +27,13 @@ public class PacienteController {
     @Autowired
     PacienteRepository pacienteRepository;
 
-    @GetMapping
-    public ResponseEntity<Iterable<Paciente>> getLista() {
-        Iterable<Paciente> pacientes = pacienteRepository.findAll();
+    @Autowired
+    UsuarioRepository usuarioRepository;
+
+    @GetMapping("/{idUsuario}")
+    public ResponseEntity<Iterable<Paciente>> getLista(@PathVariable("idUsuario") long idUsuario) {
+        Usuario u = usuarioRepository.findOne(idUsuario);
+        Iterable<Paciente> pacientes = pacienteRepository.findByUsuario(u);
         if (pacientes.iterator().hasNext()) {
             return new ResponseEntity(pacientes, HttpStatus.OK);
         } else {
@@ -35,9 +41,10 @@ public class PacienteController {
         }
     }
 
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<Paciente> findById(@PathVariable("id") long id) {
-        Paciente paciente = pacienteRepository.findOne(id);
+    @GetMapping("/{idUsuario}/{id}")
+    public ResponseEntity<Paciente> findById(@PathVariable("idUsuario") long idUsuario, @PathVariable("id") long id) {
+        Usuario usuario = usuarioRepository.findOne(idUsuario);
+        Paciente paciente = pacienteRepository.findByUsuarioAndId(usuario, id);
         if (paciente != null) {
             return new ResponseEntity(paciente, HttpStatus.OK);
         } else {
@@ -53,7 +60,7 @@ public class PacienteController {
         }
     }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping("/{id}")
     public void deletePaciente(@PathVariable("id") long id) {
         pacienteRepository.delete(id);
     }

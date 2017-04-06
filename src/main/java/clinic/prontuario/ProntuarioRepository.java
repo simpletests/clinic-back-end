@@ -1,6 +1,7 @@
 package clinic.prontuario;
 
 import clinic.paciente.Paciente;
+import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -9,5 +10,5 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface ProntuarioRepository extends CrudRepository<Prontuario, Long> {
 
-    public Iterable<Prontuario> findByPaciente(Paciente paciente);
+    public List<Prontuario> findByPacienteOrderByData(Paciente paciente);
 }
