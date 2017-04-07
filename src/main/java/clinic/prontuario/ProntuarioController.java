@@ -2,8 +2,10 @@ package clinic.prontuario;
 
 import clinic.paciente.Paciente;
 import clinic.paciente.PacienteRepository;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -27,13 +29,14 @@ public class ProntuarioController {
     @Autowired
     ProntuarioRepository prontuarioRepository;
 
-    @GetMapping("/{idPaciente}/{offset}")
-    public ResponseEntity<Iterable<Prontuario>> getLista(@PathVariable("idPaciente") long idPaciente,
-            @PathVariable("offset") long offset) {
+    @GetMapping("/{idPaciente}/{page}/{size}")
+    public ResponseEntity<Page<Prontuario>> getLista(@PathVariable("idPaciente") long idPaciente,
+            @PathVariable("page") int page, @PathVariable("size") int size) {
         Paciente paciente = pacienteRepository.findOne(idPaciente);
-        List<Prontuario> prontuarios = prontuarioRepository.findByPacienteOrderByData(paciente);
-        if (!prontuarios.isEmpty()) {
-            return new ResponseEntity(prontuarios.get(0), HttpStatus.OK);
+        Page<Prontuario> prontuarios = prontuarioRepository.findByPaciente(paciente,
+                new PageRequest(page, size, Sort.DEFAULT_DIRECTION, "data"));
+        if (prontuarios.getNumberOfElements() > 0) {
+            return new ResponseEntity(prontuarios, HttpStatus.OK);
         } else {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         }

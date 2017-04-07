@@ -1,11 +1,11 @@
 package clinic.usuario;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
  *
  * @author Tomas
  */
-public interface UsuarioRepository extends CrudRepository<Usuario, Long> {
+public interface UsuarioRepository extends PagingAndSortingRepository<Usuario, Long> {
 
 }

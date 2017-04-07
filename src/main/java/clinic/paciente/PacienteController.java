@@ -3,6 +3,8 @@ package clinic.paciente;
 import clinic.usuario.Usuario;
 import clinic.usuario.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,10 +32,11 @@ public class PacienteController {
     @Autowired
     UsuarioRepository usuarioRepository;
 
-    @GetMapping("/{idUsuario}")
-    public ResponseEntity<Iterable<Paciente>> getLista(@PathVariable("idUsuario") long idUsuario) {
+    @GetMapping("/{idUsuario}/{page}/{size}")
+    public ResponseEntity<Page<Paciente>> getLista(@PathVariable("idUsuario") long idUsuario,
+            @PathVariable("page") int page, @PathVariable("size") int size) {
         Usuario u = usuarioRepository.findOne(idUsuario);
-        Iterable<Paciente> pacientes = pacienteRepository.findByUsuario(u);
+        Page<Paciente> pacientes = pacienteRepository.findByUsuario(u, new PageRequest(page, size));
         if (pacientes.iterator().hasNext()) {
             return new ResponseEntity(pacientes, HttpStatus.OK);
         } else {

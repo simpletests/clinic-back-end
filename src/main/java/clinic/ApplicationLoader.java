@@ -9,6 +9,8 @@ import clinic.prontuario.ProntuarioRepository;
 import clinic.usuario.Usuario;
 import clinic.usuario.UsuarioRepository;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -53,5 +55,13 @@ public class ApplicationLoader implements ApplicationListener<ContextRefreshedEv
         prontuarioRepository.save(new Prontuario(tomas, LocalDateTime.now().minusDays(60), "Fadiga muscular"));
         prontuarioRepository.save(new Prontuario(tomas, LocalDateTime.now().minusDays(30), "Sintomas aparentes de gripe"));
         prontuarioRepository.save(new Prontuario(sabrina, LocalDateTime.now().minusDays(30), "Febre de 38 graus"));
+
+        List<Paciente> pacientes = new ArrayList();
+        for (int i = 0; i < 100; i++) {
+            pacientes.add(new Paciente(medico1, "Tomas Clone " + i, "tomaslm@hotmail.com",
+                    new Endereco("Rua São José", 100, "casa", "São Paulo", "Ribeirão Preto", "Brasil"),
+                    22, Sexo.MASCULINO, "3202-3063", "99222-1131"));
+        }
+        pacienteRepository.save(pacientes);
     }
 }
