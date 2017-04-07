@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -27,11 +28,6 @@ public class Application {
     @Autowired
     private DataSource dataSource;
 
-    @GetMapping("/user")
-    public Principal user(Principal user) {
-        return user;
-    }
-
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
@@ -48,7 +44,10 @@ public class Application {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http.csrf().disable().anonymous().disable()
-                    .authorizeRequests().antMatchers("/login").permitAll();
+                .authorizeRequests()
+                .antMatchers("/oauth/**").permitAll()
+                .anyRequest().authenticated()
+                .and().httpBasic();
         }
     }
 }

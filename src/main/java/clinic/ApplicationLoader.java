@@ -1,4 +1,4 @@
-package clinic.application;
+package clinic;
 
 import clinic.common.Endereco;
 import clinic.common.Sexo;
