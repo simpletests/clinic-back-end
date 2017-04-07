@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @CrossOrigin
 @RestController
-@RequestMapping("/prontuario")
+@RequestMapping("{idPaciente}/prontuario")
 public class ProntuarioController {
 
     @Autowired
@@ -29,12 +30,12 @@ public class ProntuarioController {
     @Autowired
     ProntuarioRepository prontuarioRepository;
 
-    @GetMapping("/{idPaciente}/{page}/{size}")
+    @GetMapping
     public ResponseEntity<Page<Prontuario>> getLista(@PathVariable("idPaciente") long idPaciente,
-            @PathVariable("page") int page, @PathVariable("size") int size) {
-        Paciente paciente = pacienteRepository.findOne(idPaciente);
+            @RequestParam("page") int page, @RequestParam("size") int size) {
+        Paciente paciente = pacienteRepository.findOne((long) idPaciente);
         Page<Prontuario> prontuarios = prontuarioRepository.findByPaciente(paciente,
-                new PageRequest(page, size, Sort.DEFAULT_DIRECTION, "data"));
+                new PageRequest(page, size, Sort.Direction.ASC, "data"));
         if (prontuarios.getNumberOfElements() > 0) {
             return new ResponseEntity(prontuarios, HttpStatus.OK);
         } else {

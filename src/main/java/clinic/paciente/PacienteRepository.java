@@ -14,5 +14,7 @@ public interface PacienteRepository extends PagingAndSortingRepository<Paciente,
 
     Page<Paciente> findByUsuario(Usuario u, Pageable pageable);
 
-    Paciente findByUsuarioAndId(Usuario u, Long id);
+    default Paciente findByUsuarioAndId(Usuario u, Long id) {
+        return findOne(QPaciente.paciente.usuario.eq(u).and(QPaciente.paciente.id.eq(id)));
+    }
 }
