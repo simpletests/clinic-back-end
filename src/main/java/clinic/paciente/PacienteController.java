@@ -5,7 +5,7 @@ import clinic.usuario.UsuarioRepository;
 import com.querydsl.core.types.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -36,11 +36,12 @@ public class PacienteController {
 
     @GetMapping
     public ResponseEntity<Page<Paciente>> getLista(@PathVariable("idUsuario") long idUsuario,
-            @RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("search") String search) {
+            @RequestParam("page") int page, @RequestParam("size") int size,
+            @RequestParam("search") String search) {
         Usuario u = usuarioRepository.findOne(idUsuario);
         Predicate predicate = QPaciente.paciente.nome.likeIgnoreCase("%" + search + "%")
                 .and(QPaciente.paciente.usuario.eq(u));
-        return new ResponseEntity(pacienteRepository.findAll(predicate, new PageRequest(page, size)), HttpStatus.OK);
+        return new ResponseEntity(pacienteRepository.findAll(predicate, new QPageRequest(page, size)), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

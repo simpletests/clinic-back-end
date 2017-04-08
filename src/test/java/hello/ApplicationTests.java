@@ -17,7 +17,18 @@ package hello;
 //@SpringBootTest
 //@AutoConfigureMockMvc
 
+import clinic.paciente.QPaciente;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Test;
+
 public class ApplicationTests {
+
+    @Test
+    public void test() throws Exception {
+        ObjectMapper objMapper = new ObjectMapper();
+        QPaciente paciente = QPaciente.paciente;
+        QPaciente.class.getDeclaredField("nome").get(QPaciente.paciente);
+    }
 
 //    @Autowired
 //    private PacienteRepository pacienteRepository;
