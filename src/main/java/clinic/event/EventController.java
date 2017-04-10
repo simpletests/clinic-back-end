@@ -1,6 +1,7 @@
 package clinic.event;
 
 import clinic.user.User;
+import clinic.user.UserRepository;
 import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import clinic.user.UserRepository;
 
 /**
  *
@@ -23,7 +23,7 @@ import clinic.user.UserRepository;
  */
 @CrossOrigin
 @RestController
-@RequestMapping("{idUsuario}/consulta")
+@RequestMapping("{idUser}/event")
 public class EventController {
 
     @Autowired
@@ -33,9 +33,9 @@ public class EventController {
     UserRepository usuarioRepository;
 
     @GetMapping
-    public ResponseEntity<List<Event>> getLista(@PathVariable("idUsuario") Long idUsuario,
+    public ResponseEntity<List<Event>> getLista(@PathVariable("idUser") Long idUser,
             @RequestParam("month") int month, @RequestParam("year") int year) {
-        User usuario = usuarioRepository.findOne(idUsuario);
+        User usuario = usuarioRepository.findOne(idUser);
         return new ResponseEntity(eventRepository
                 .findByUsuarioAndInicioBetween(usuario, LocalDate.of(year, month, 0).atStartOfDay(),
                         LocalDate.of(year, month, 0).atStartOfDay()), HttpStatus.OK);
@@ -43,7 +43,7 @@ public class EventController {
     }
 
     @PostMapping
-    public void criaNovo(@PathVariable("idUsuario") Long idUsuario, @RequestBody Event event) {
+    public void criaNovo(@PathVariable("idUser") Long idUser, @RequestBody Event event) {
         eventRepository.save(event);
     }
 
