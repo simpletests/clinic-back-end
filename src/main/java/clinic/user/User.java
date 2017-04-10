@@ -19,5 +19,5 @@ import lombok.Setter;
 public class User extends BasicId {
 
     String login;
-    String senha;
+    String password;
 }

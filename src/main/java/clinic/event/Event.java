@@ -21,8 +21,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Event extends BasicId {
 
-    LocalDateTime inicio;
-    LocalDateTime fim;
+    LocalDateTime start;
+    LocalDateTime end;
     @ManyToOne
-    Patient paciente;
+    Patient patient;
 }

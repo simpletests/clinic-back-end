@@ -25,20 +25,20 @@ import lombok.Setter;
 public class Patient extends BasicId {
 
     @ManyToOne
-    private User usuario;
+    private User user;
 
-    private String nome;
+    private String name;
 
     private String email;
 
     @OneToOne(cascade = CascadeType.ALL)
-    private Address endereco;
+    private Address address;
 
-    private Integer idade;
+    private Integer age;
 
-    private Gender sexo;
+    private Gender gender;
 
-    private String telefoneFixo;
+    private String phone;
 
-    private String telefoneCelular;
+    private String mobilePhone;
 }

@@ -1,6 +1,5 @@
 package clinic.patient;
 
-import clinic.paciente.QPaciente;
 import clinic.user.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,7 +14,5 @@ public interface PatientRepository extends PagingAndSortingRepository<Patient, L
 
     Page<Patient> findByUsuario(User u, Pageable pageable);
 
-    default Patient findByUsuarioAndId(User u, Long id) {
-        return findOne(QPaciente.paciente.usuario.eq(u).and(QPaciente.paciente.id.eq(id)));
-    }
+    Patient findByUserAndId(User u, Long id);
 }

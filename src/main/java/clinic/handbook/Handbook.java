@@ -22,9 +22,9 @@ import lombok.Setter;
 public class Handbook extends BasicId {
 
     @ManyToOne
-    Patient paciente;
+    Patient patient;
 
-    LocalDateTime data;
+    LocalDateTime time;
 
-    String observacoes;
+    String observations;
 }

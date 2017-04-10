@@ -35,15 +35,15 @@ public class EventController {
     @GetMapping
     public ResponseEntity<List<Event>> getLista(@PathVariable("idUser") Long idUser,
             @RequestParam("month") int month, @RequestParam("year") int year) {
-        User usuario = usuarioRepository.findOne(idUser);
+        User user = usuarioRepository.findOne(idUser);
         return new ResponseEntity(eventRepository
-                .findByUsuarioAndInicioBetween(usuario, LocalDate.of(year, month, 0).atStartOfDay(),
+                .findByUserAndStartBetween(user, LocalDate.of(year, month, 0).atStartOfDay(),
                         LocalDate.of(year, month, 0).atStartOfDay()), HttpStatus.OK);
 
     }
 
     @PostMapping
-    public void criaNovo(@PathVariable("idUser") Long idUser, @RequestBody Event event) {
+    public void createNew(@PathVariable("idUser") Long idUser, @RequestBody Event event) {
         eventRepository.save(event);
     }
 

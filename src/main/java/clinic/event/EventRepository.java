@@ -12,5 +12,5 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  */
 public interface EventRepository extends PagingAndSortingRepository<Event, Long>, QueryDslPredicateExecutor<Event> {
 
-    public List<Event> findByUsuarioAndInicioBetween(User usuario, LocalDateTime startDate, LocalDateTime endDate);
+    public List<Event> findByUserAndStartBetween(User user, LocalDateTime startDate, LocalDateTime endDate);
 }

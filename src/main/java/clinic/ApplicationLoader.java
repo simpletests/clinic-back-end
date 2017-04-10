@@ -2,10 +2,17 @@ package clinic.application;
 
 import clinic.common.Address;
 import clinic.common.Gender;
-import clinic.patient.Patient;
+import clinic.event.Event;
+import clinic.event.EventRepository;
 import clinic.handbook.Handbook;
+import clinic.handbook.HandbookRepository;
+import clinic.patient.Patient;
+import clinic.patient.PatientRepository;
 import clinic.user.User;
+import clinic.user.UserRepository;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,9 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
-import clinic.patient.PatientRepository;
-import clinic.user.UserRepository;
-import clinic.handbook.HandbookRepository;
 
 /**
  *
@@ -33,6 +37,8 @@ public class ApplicationLoader implements ApplicationListener<ContextRefreshedEv
 
     @Autowired
     private HandbookRepository prontuarioRepository;
+    @Autowired
+    private EventRepository eventRepository;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent e) {
@@ -68,5 +74,8 @@ public class ApplicationLoader implements ApplicationListener<ContextRefreshedEv
                     "3202-3063", "99222-1131"));
         }
         pacienteRepository.save(pacientes);
+
+        eventRepository.save(new Event(LocalDateTime.of(LocalDate.now(), LocalTime.of(14, 0)),
+                LocalDateTime.of(LocalDate.now(), LocalTime.of(14, 50)), sabrina));
     }
 }
