@@ -2,7 +2,8 @@ package clinic.event;
 
 import clinic.user.User;
 import clinic.user.UserRepository;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("{idUser}/event")
 public class EventController {
 
+    final DateTimeFormatter javascriptFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+
     @Autowired
     EventRepository eventRepository;
 
@@ -34,11 +37,19 @@ public class EventController {
 
     @GetMapping
     public ResponseEntity<List<Event>> getLista(@PathVariable("idUser") Long idUser,
-            @RequestParam("month") int month, @RequestParam("year") int year) {
+            @RequestParam(value = "start", required = false) String start,
+            @RequestParam(value = "end", required = false) String end) {
+//        start = LocalDate.of(2017, 3, 1).atStartOfDay().toString();
+//        end = LocalDate.of(2017, 5, 1).atStartOfDay().toString();
         User user = usuarioRepository.findOne(idUser);
-        return new ResponseEntity(eventRepository
-                .findByPatientUserAndStartBetween(user, LocalDate.of(year, month, 1).atStartOfDay(),
-                        LocalDate.of(year, month + 1, 1).atStartOfDay()), HttpStatus.OK);
+        if (start != null && end != null) {
+            return new ResponseEntity(eventRepository
+                    .findByPatientUserAndStartBetween(user, LocalDateTime.parse(start, javascriptFormatter),
+                            LocalDateTime.parse(end, javascriptFormatter)), HttpStatus.OK);
+        } else {
+            return new ResponseEntity(eventRepository
+                    .findByPatientUser(user), HttpStatus.OK);
+        }
 
     }
 
