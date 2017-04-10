@@ -1,6 +1,7 @@
-package clinic.paciente;
+package clinic.patient;
 
-import clinic.usuario.Usuario;
+import clinic.paciente.QPaciente;
+import clinic.user.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.querydsl.QueryDslPredicateExecutor;
@@ -10,11 +11,11 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  *
  * @author Tomas
  */
-public interface PacienteRepository extends PagingAndSortingRepository<Paciente, Long>, QueryDslPredicateExecutor<Paciente> {
+public interface PatientRepository extends PagingAndSortingRepository<Patient, Long>, QueryDslPredicateExecutor<Patient> {
 
-    Page<Paciente> findByUsuario(Usuario u, Pageable pageable);
+    Page<Patient> findByUsuario(User u, Pageable pageable);
 
-    default Paciente findByUsuarioAndId(Usuario u, Long id) {
+    default Patient findByUsuarioAndId(User u, Long id) {
         return findOne(QPaciente.paciente.usuario.eq(u).and(QPaciente.paciente.id.eq(id)));
     }
 }

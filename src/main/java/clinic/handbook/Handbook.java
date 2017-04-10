@@ -1,7 +1,7 @@
-package clinic.prontuario;
+package clinic.handbook;
 
 import clinic.basic.BasicId;
-import clinic.paciente.Paciente;
+import clinic.patient.Patient;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -19,10 +19,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Prontuario extends BasicId {
+public class Handbook extends BasicId {
 
     @ManyToOne
-    Paciente paciente;
+    Patient paciente;
 
     LocalDateTime data;
 

@@ -1,7 +1,6 @@
-package clinic.prontuario;
+package clinic.handbook;
 
-import clinic.paciente.Paciente;
-import clinic.paciente.PacienteRepository;
+import clinic.patient.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import clinic.patient.PatientRepository;
 
 /**
  *
@@ -22,19 +22,19 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 @RestController
 @RequestMapping("{idPaciente}/prontuario")
-public class ProntuarioController {
+public class HandbookController {
 
     @Autowired
-    PacienteRepository pacienteRepository;
+    PatientRepository pacienteRepository;
 
     @Autowired
-    ProntuarioRepository prontuarioRepository;
+    HandbookRepository prontuarioRepository;
 
     @GetMapping
-    public ResponseEntity<Page<Prontuario>> getLista(@PathVariable("idPaciente") long idPaciente,
+    public ResponseEntity<Page<Handbook>> getLista(@PathVariable("idPaciente") long idPaciente,
             @RequestParam("page") int page, @RequestParam("size") int size) {
-        Paciente paciente = pacienteRepository.findOne((long) idPaciente);
-        Page<Prontuario> prontuarios = prontuarioRepository.findByPaciente(paciente,
+        Patient paciente = pacienteRepository.findOne((long) idPaciente);
+        Page<Handbook> prontuarios = prontuarioRepository.findByPaciente(paciente,
                 new PageRequest(page, size, Sort.Direction.ASC, "data"));
         if (prontuarios.getNumberOfElements() > 0) {
             return new ResponseEntity(prontuarios, HttpStatus.OK);

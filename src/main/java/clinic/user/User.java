@@ -1,4 +1,4 @@
-package clinic.usuario;
+package clinic.user;
 
 import clinic.basic.BasicId;
 import javax.persistence.Entity;
@@ -16,7 +16,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Usuario extends BasicId {
+public class User extends BasicId {
 
     String login;
     String senha;

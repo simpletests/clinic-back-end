@@ -1,13 +1,10 @@
 package clinic.application;
 
-import clinic.common.Endereco;
-import clinic.common.Sexo;
-import clinic.paciente.Paciente;
-import clinic.paciente.PacienteRepository;
-import clinic.prontuario.Prontuario;
-import clinic.prontuario.ProntuarioRepository;
-import clinic.usuario.Usuario;
-import clinic.usuario.UsuarioRepository;
+import clinic.common.Address;
+import clinic.common.Gender;
+import clinic.patient.Patient;
+import clinic.handbook.Handbook;
+import clinic.user.User;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,6 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+import clinic.patient.PatientRepository;
+import clinic.user.UserRepository;
+import clinic.handbook.HandbookRepository;
 
 /**
  *
@@ -26,45 +26,45 @@ import org.springframework.stereotype.Component;
 public class ApplicationLoader implements ApplicationListener<ContextRefreshedEvent> {
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private UserRepository usuarioRepository;
 
     @Autowired
-    private PacienteRepository pacienteRepository;
+    private PatientRepository pacienteRepository;
 
     @Autowired
-    private ProntuarioRepository prontuarioRepository;
+    private HandbookRepository prontuarioRepository;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent e) {
-        Usuario medico1 = new Usuario("Dr. Carlos da Silva Santos", "123");
-        Usuario medico2 = new Usuario("Dra. Silvia Maria da Silva", "123");
+        User medico1 = new User("Dr. Carlos da Silva Santos", "123");
+        User medico2 = new User("Dra. Silvia Maria da Silva", "123");
         usuarioRepository.save(medico1);
 
         usuarioRepository.save(medico2);
 
-        Paciente tomas = new Paciente(medico1, "Tomas", "tomaslm@hotmail.com",
-                new Endereco("Rua São José", 100, "casa", "São Paulo", "Ribeirão Preto", "Brasil"),
-                22, Sexo.MASCULINO, "3202-3063", "99222-1131");
-        Paciente sabrina = new Paciente(medico1, "Sabrina", "tomaslm@hotmail.com",
-                new Endereco("Rua São José", 100, "casa", "São Paulo", "Ribeirão Preto", "Brasil"),
-                22, Sexo.FEMININO, "3202-3063", "99332-1131");
-        Paciente wesley = new Paciente(medico2, "Wesley", "wesley@hotmail.com",
-                new Endereco("Rua do Sertão", 250, "apto 3", "São Paulo", "Sertãozinho", "Brasil"),
-                25, Sexo.MASCULINO, "3111-3543", "98742-6985");
+        Patient tomas = new Patient(medico1, "Tomas", "tomaslm@hotmail.com",
+                new Address("Rua São José", 100, "casa", "São Paulo", "Ribeirão Preto", "Brasil"),
+                22, Gender.MASCULINO, "3202-3063", "99222-1131");
+        Patient sabrina = new Patient(medico1, "Sabrina", "tomaslm@hotmail.com",
+                new Address("Rua São José", 100, "casa", "São Paulo", "Ribeirão Preto", "Brasil"),
+                22, Gender.FEMININO, "3202-3063", "99332-1131");
+        Patient wesley = new Patient(medico2, "Wesley", "wesley@hotmail.com",
+                new Address("Rua do Sertão", 250, "apto 3", "São Paulo", "Sertãozinho", "Brasil"),
+                25, Gender.MASCULINO, "3111-3543", "98742-6985");
         pacienteRepository.save(tomas);
         pacienteRepository.save(sabrina);
         pacienteRepository.save(wesley);
-        prontuarioRepository.save(new Prontuario(tomas, LocalDateTime.now().minusDays(60), "Fadiga muscular"));
-        prontuarioRepository.save(new Prontuario(tomas, LocalDateTime.now().minusDays(30), "Sintomas aparentes de gripe"));
-        prontuarioRepository.save(new Prontuario(sabrina, LocalDateTime.now().minusDays(30), "Febre de 38 graus"));
+        prontuarioRepository.save(new Handbook(tomas, LocalDateTime.now().minusDays(60), "Fadiga muscular"));
+        prontuarioRepository.save(new Handbook(tomas, LocalDateTime.now().minusDays(30), "Sintomas aparentes de gripe"));
+        prontuarioRepository.save(new Handbook(sabrina, LocalDateTime.now().minusDays(30), "Febre de 38 graus"));
 
-        List<Paciente> pacientes = new ArrayList();
+        List<Patient> pacientes = new ArrayList();
         List<String> listaNomes = Arrays.asList("Tomas", "Wesley", "Arthur");
         for (int i = 0; i < 100; i++) {
-            pacientes.add(new Paciente(medico1, listaNomes.get(new Random().nextInt(listaNomes.size())) + " Clone " + i,
+            pacientes.add(new Patient(medico1, listaNomes.get(new Random().nextInt(listaNomes.size())) + " Clone " + i,
                     "tomaslm@hotmail.com",
-                    new Endereco("Rua São José", 100, "casa", "São Paulo", "Ribeirão Preto", "Brasil"),
-                    22, Sexo.MASCULINO,
+                    new Address("Rua São José", 100, "casa", "São Paulo", "Ribeirão Preto", "Brasil"),
+                    22, Gender.MASCULINO,
                     "3202-3063", "99222-1131"));
         }
         pacienteRepository.save(pacientes);

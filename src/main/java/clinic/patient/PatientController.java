@@ -1,7 +1,7 @@
-package clinic.paciente;
+package clinic.patient;
 
-import clinic.usuario.Usuario;
-import clinic.usuario.UsuarioRepository;
+import clinic.paciente.QPaciente;
+import clinic.user.User;
 import com.querydsl.core.types.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
+import clinic.user.UserRepository;
 
 /**
  *
@@ -26,29 +27,29 @@ import org.springframework.web.util.UriComponentsBuilder;
 @CrossOrigin
 @RestController
 @RequestMapping("/{idUsuario}/paciente")
-public class PacienteController {
+public class PatientController {
 
     @Autowired
-    PacienteRepository pacienteRepository;
+    PatientRepository pacienteRepository;
 
     @Autowired
-    UsuarioRepository usuarioRepository;
+    UserRepository usuarioRepository;
 
     @GetMapping
-    public ResponseEntity<Page<Paciente>> getLista(@PathVariable("idUsuario") long idUsuario,
+    public ResponseEntity<Page<Patient>> getLista(@PathVariable("idUsuario") long idUsuario,
             @RequestParam("page") int page, @RequestParam("size") int size,
             @RequestParam("search") String search) {
-        Usuario u = usuarioRepository.findOne(idUsuario);
+        User u = usuarioRepository.findOne(idUsuario);
         Predicate predicate = QPaciente.paciente.nome.likeIgnoreCase("%" + search + "%")
                 .and(QPaciente.paciente.usuario.eq(u));
         return new ResponseEntity(pacienteRepository.findAll(predicate, new QPageRequest(page, size)), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Paciente> findById(@PathVariable("idUsuario") long idUsuario, @PathVariable("id") long id) {
-        Usuario usuario = usuarioRepository.findOne(idUsuario);
+    public ResponseEntity<Patient> findById(@PathVariable("idUsuario") long idUsuario, @PathVariable("id") long id) {
+        User usuario = usuarioRepository.findOne(idUsuario);
 //        Paciente paciente = pacienteRepository.findOne(QPaciente.paciente.usuario.eq(usuario).and(QPaciente.paciente.id.eq(id)));
-        Paciente paciente = pacienteRepository.findByUsuarioAndId(usuario, id);
+        Patient paciente = pacienteRepository.findByUsuarioAndId(usuario, id);
         if (paciente != null) {
             return new ResponseEntity(paciente, HttpStatus.OK);
         } else {
@@ -57,7 +58,7 @@ public class PacienteController {
     }
 
     @PostMapping
-    public void createPaciente(@RequestBody Paciente paciente, UriComponentsBuilder uriBuilder) {
+    public void createPaciente(@RequestBody Patient paciente, UriComponentsBuilder uriBuilder) {
         paciente = pacienteRepository.save(paciente);
         if (paciente != null) {
         } else {

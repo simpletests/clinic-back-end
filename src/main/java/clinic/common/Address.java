@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class Endereco extends BasicId {
+public class Address extends BasicId {
 
     String logradouro;
     Integer numero;
