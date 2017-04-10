@@ -37,7 +37,7 @@ public class EventController {
             @RequestParam("month") int month, @RequestParam("year") int year) {
         User user = usuarioRepository.findOne(idUser);
         return new ResponseEntity(eventRepository
-                .findByUserAndStartBetween(user, LocalDate.of(year, month, 0).atStartOfDay(),
+                .findByPatientUserAndStartBetween(user, LocalDate.of(year, month, 0).atStartOfDay(),
                         LocalDate.of(year, month, 0).atStartOfDay()), HttpStatus.OK);
 
     }

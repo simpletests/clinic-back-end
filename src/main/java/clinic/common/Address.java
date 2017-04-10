@@ -16,26 +16,26 @@ import lombok.NoArgsConstructor;
 @Getter
 public class Address extends BasicId {
 
-    String logradouro;
-    Integer numero;
-    String complemento;
-    String cidade;
-    String pais;
-    String estado;
+    String street;
+    Integer number;
+    String complement;
+    String city;
+    String country;
+    String state;
 
     public String getLabel() {
         StringBuilder sb = new StringBuilder();
-        sb.append(logradouro)
+        sb.append(street)
                 .append(", ")
-                .append(numero)
+                .append(number)
                 .append(", ")
-                .append(complemento)
+                .append(complement)
                 .append(", ")
-                .append(estado)
+                .append(state)
                 .append(", ")
-                .append(cidade)
+                .append(city)
                 .append(", ")
-                .append(pais);
+                .append(country);
         return sb.toString();
     }
 

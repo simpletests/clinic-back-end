@@ -12,7 +12,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  */
 public interface PatientRepository extends PagingAndSortingRepository<Patient, Long>, QueryDslPredicateExecutor<Patient> {
 
-    Page<Patient> findByUsuario(User u, Pageable pageable);
+    Page<Patient> findByUser(User u, Pageable pageable);
 
     Patient findByUserAndId(User u, Long id);
 }

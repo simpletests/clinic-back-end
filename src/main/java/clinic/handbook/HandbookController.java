@@ -21,20 +21,20 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @CrossOrigin
 @RestController
-@RequestMapping("{idPatient}/prontuario")
+@RequestMapping("{idPatient}/handbook")
 public class HandbookController {
 
     @Autowired
     PatientRepository pacienteRepository;
 
     @Autowired
-    HandbookRepository prontuarioRepository;
+    HandbookRepository handbookRepository;
 
     @GetMapping
     public ResponseEntity<Page<Handbook>> getLista(@PathVariable("idPatient") long idPaciente,
             @RequestParam("page") int page, @RequestParam("size") int size) {
         Patient paciente = pacienteRepository.findOne((long) idPaciente);
-        Page<Handbook> prontuarios = prontuarioRepository.findByPaciente(paciente,
+        Page<Handbook> prontuarios = handbookRepository.findByPatient(paciente,
                 new PageRequest(page, size, Sort.Direction.ASC, "data"));
         if (prontuarios.getNumberOfElements() > 0) {
             return new ResponseEntity(prontuarios, HttpStatus.OK);

@@ -40,5 +40,5 @@ public class Patient extends BasicId {
 
     private String phone;
 
-    private String mobilePhone;
+    private String cellphone;
 }
