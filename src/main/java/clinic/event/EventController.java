@@ -2,6 +2,7 @@ package clinic.event;
 
 import clinic.user.User;
 import clinic.user.UserRepository;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,18 +40,18 @@ public class EventController {
     public ResponseEntity<List<Event>> getLista(@PathVariable("idUser") Long idUser,
             @RequestParam(value = "start", required = false) String start,
             @RequestParam(value = "end", required = false) String end) {
-//        start = LocalDate.of(2017, 3, 1).atStartOfDay().toString();
-//        end = LocalDate.of(2017, 5, 1).atStartOfDay().toString();
+//        start = LocalDate.of(2016, 3, 1).atStartOfDay().toString();
+//        end = LocalDate.of(2018, 5, 1).atStartOfDay().toString();
         User user = usuarioRepository.findOne(idUser);
-//        if (start != null && end != null) {
-//            List<Event> retorno = eventRepository
-//                    .findByPatientUserAndStartBetween(user, LocalDateTime.parse(start, javascriptFormatter),
-//                            LocalDateTime.parse(end, javascriptFormatter));
-//            return new ResponseEntity(retorno, HttpStatus.OK);
-//        } else {
-        return new ResponseEntity(eventRepository
-                .findByPatientUser(user), HttpStatus.OK);
-//        }
+        if (start != null && end != null) {
+            List<Event> retorno = eventRepository
+                    .findByPatientUserAndStartBetween(user, LocalDateTime.parse(start, javascriptFormatter),
+                            LocalDateTime.parse(end, javascriptFormatter));
+            return new ResponseEntity(retorno, HttpStatus.OK);
+        } else {
+            return new ResponseEntity(eventRepository
+                    .findByPatientUserAndStartBetween(user, LocalDateTime.MIN, LocalDateTime.MAX), HttpStatus.OK);
+        }
 
     }
 
@@ -62,6 +63,11 @@ public class EventController {
     @DeleteMapping("/{id}")
     public void deleteEvent(@PathVariable("id") Long id, UriComponentsBuilder uriBuilder) {
         eventRepository.delete(id);
+    }
+
+    @GetMapping("/{id}")
+    public Event getEvent(@PathVariable("id") Long id) {
+        return eventRepository.findOne(id);
     }
 
 }

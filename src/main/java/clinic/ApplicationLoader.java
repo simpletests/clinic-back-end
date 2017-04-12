@@ -30,7 +30,7 @@ import org.springframework.stereotype.Component;
 public class ApplicationLoader implements ApplicationListener<ContextRefreshedEvent> {
 
     @Autowired
-    private UserRepository usuarioRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private PatientRepository pacienteRepository;
@@ -44,9 +44,9 @@ public class ApplicationLoader implements ApplicationListener<ContextRefreshedEv
     public void onApplicationEvent(ContextRefreshedEvent e) {
         User medico1 = new User("Dr. Carlos da Silva Santos", "123");
         User medico2 = new User("Dra. Silvia Maria da Silva", "123");
-        usuarioRepository.save(medico1);
+        userRepository.save(medico1);
 
-        usuarioRepository.save(medico2);
+        userRepository.save(medico2);
 
         Patient tomas = new Patient(medico1, "Tomas", "tomaslm@hotmail.com",
                 new Address("Rua São José", 100, "casa", "São Paulo", "Ribeirão Preto", "Brasil"),
