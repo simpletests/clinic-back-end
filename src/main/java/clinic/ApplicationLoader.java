@@ -77,5 +77,7 @@ public class ApplicationLoader implements ApplicationListener<ContextRefreshedEv
 
         eventRepository.save(new Event(LocalDateTime.of(LocalDate.now(), LocalTime.of(14, 0)),
                 LocalDateTime.of(LocalDate.now(), LocalTime.of(14, 50)), sabrina));
+        eventRepository.save(new Event(LocalDateTime.of(LocalDate.now().plusDays(3), LocalTime.of(14, 0)),
+                LocalDateTime.of(LocalDate.now().plusDays(3), LocalTime.of(14, 50)), sabrina));
     }
 }
