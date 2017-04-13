@@ -43,15 +43,15 @@ public class EventController {
 //        start = LocalDate.of(2016, 3, 1).atStartOfDay().toString();
 //        end = LocalDate.of(2018, 5, 1).atStartOfDay().toString();
         User user = usuarioRepository.findOne(idUser);
-        if (start != null && end != null) {
-            List<Event> retorno = eventRepository
-                    .findByPatientUserAndStartBetween(user, LocalDateTime.parse(start, javascriptFormatter),
-                            LocalDateTime.parse(end, javascriptFormatter));
-            return new ResponseEntity(retorno, HttpStatus.OK);
-        } else {
-            return new ResponseEntity(eventRepository
-                    .findByPatientUserAndStartBetween(user, LocalDateTime.MIN, LocalDateTime.MAX), HttpStatus.OK);
-        }
+//        if (start != null && end != null) {
+//            List<Event> retorno = eventRepository
+//                    .findByPatientUserAndStartBetween(user, LocalDateTime.parse(start, javascriptFormatter),
+//                            LocalDateTime.parse(end, javascriptFormatter));
+//            return new ResponseEntity(retorno, HttpStatus.OK);
+//        } else {
+        return new ResponseEntity(eventRepository
+                .findByPatientUserAndStartBetween(user, LocalDateTime.MIN, LocalDateTime.MAX), HttpStatus.OK);
+//        }
 
     }
 
