@@ -26,7 +26,6 @@ import clinic.user.UserRepository;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.Month;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
@@ -69,11 +68,12 @@ public class ApplicationTests {
     @Test
     public void test() {
         User usr = userRepository.findOne(1L);
-        LocalDateTime start = LocalDateTime.of(2017, Month.MARCH, 0, 0, 0);
-        LocalDateTime end = LocalDateTime.of(2017, Month.MARCH, 0, 0, 0);
+        LocalDateTime start = LocalDateTime.of(2017, 1, 1, 0, 0);
+        LocalDateTime end = LocalDateTime.of(2017, 6, 1, 0, 0);
         List<Event> events = eventRepository
                 .findByPatientUserAndStartBetween(usr, start, end);
         System.out.println("events size:" + events.size());
+        assert (events.size() == 2);
     }
 
 }
