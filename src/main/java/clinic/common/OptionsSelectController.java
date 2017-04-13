@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @CrossOrigin
 @RestController
-@RequestMapping("/opcoesSelect")
-public class OpcoesSelectController {
+@RequestMapping("/optionsSelect")
+public class OptionsSelectController {
 
-    @GetMapping("/sexo")
-    public List<Sexo> opcoesSexo() {
-        return Stream.of(Sexo.values()).collect(Collectors.toList());
+    @GetMapping("/gender")
+    public List<Gender> opcoesSexo() {
+        return Stream.of(Gender.values()).collect(Collectors.toList());
     }
 }

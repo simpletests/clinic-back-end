@@ -1,10 +1,12 @@
-package clinic.paciente;
+package clinic.patient;
 
 import clinic.basic.BasicId;
-import clinic.common.Endereco;
-import clinic.common.Sexo;
+import clinic.common.Address;
+import clinic.common.Gender;
+import clinic.user.User;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,14 +22,23 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Paciente extends BasicId {
+public class Patient extends BasicId {
 
-    private String nome;
+    @ManyToOne
+    private User user;
+
+    private String name;
+
     private String email;
+
     @OneToOne(cascade = CascadeType.ALL)
-    private Endereco endereco;
-    private Integer idade;
-    private Sexo sexo;
-    private String telefoneFixo;
-    private String telefoneCelular;
+    private Address address;
+
+    private Integer age;
+
+    private Gender gender;
+
+    private String phone;
+
+    private String cellphone;
 }
