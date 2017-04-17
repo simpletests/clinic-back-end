@@ -41,7 +41,11 @@ public class PatientController {
             @RequestParam(value = "size", defaultValue = "10") Integer size,
             @RequestParam(value = "search", defaultValue = "") String search) {
         User u = userRepository.findOne(idUser);
-        BooleanExpression predicate = QPatient.patient.user.eq(u).and(QPatient.patient.name.likeIgnoreCase("%" + search + "%"));
+        BooleanExpression predicate = QPatient.patient.user.eq(u);
+        String[] searchs = search.split(" ");
+        for (int i = 0; i < searchs.length; i++) {
+            predicate = predicate.and(QPatient.patient.name.likeIgnoreCase("%" + searchs[i] + "%"));
+        }
         return new ResponseEntity(patientRepository.findAll(predicate, new QPageRequest(page, size)), HttpStatus.OK);
     }
 
