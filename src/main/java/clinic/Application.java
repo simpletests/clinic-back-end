@@ -1,5 +1,6 @@
 package clinic;
 
+import clinic.security.UserDetailsServiceImpl;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -24,6 +25,9 @@ public class Application {
 
     @Autowired
     private DataSource dataSource;
+    
+    @Autowired
+    private UserDetailsServiceImpl userDetailsServiceImpl;
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -31,20 +35,6 @@ public class Application {
 
     @Autowired
     public void init(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication().dataSource(dataSource);
+        auth.userDetailsService(userDetailsServiceImpl).and().jdbcAuthentication().dataSource(dataSource);
     }
-
-//    @Configuration
-//    @EnableWebSecurity
-//    public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
-//
-//        @Override
-//        protected void configure(HttpSecurity http) throws Exception {
-//            http.csrf().disable().anonymous().disable()
-//                .authorizeRequests()
-//                .antMatchers("/oauth/**").permitAll()
-//                .anyRequest().authenticated()
-//                .and().httpBasic().realmName("CLINIC_SERVER");
-//        }
-//    }
 }
