@@ -2,7 +2,7 @@ package clinic.patient;
 
 import clinic.user.User;
 import clinic.user.UserRepository;
-import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.querydsl.QPageRequest;
@@ -35,12 +35,17 @@ public class PatientController {
     UserRepository userRepository;
 
     @GetMapping
-    public ResponseEntity<Page<Patient>> getLista(@PathVariable("idUser") long idUser,
-            @RequestParam("page") int page, @RequestParam("size") int size,
-            @RequestParam("search") String search) {
+    public ResponseEntity<Page<Patient>> getLista(
+            @PathVariable("idUser") Long idUser,
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "size", defaultValue = "10") Integer size,
+            @RequestParam(value = "search", defaultValue = "") String search) {
         User u = userRepository.findOne(idUser);
-        Predicate predicate = QPatient.patient.name.likeIgnoreCase("%" + search + "%")
-                .and(QPatient.patient.user.eq(u));
+        BooleanExpression predicate = QPatient.patient.user.eq(u);
+        String[] searchs = search.split(" ");
+        for (int i = 0; i < searchs.length; i++) {
+            predicate = predicate.and(QPatient.patient.name.likeIgnoreCase("%" + searchs[i] + "%"));
+        }
         return new ResponseEntity(patientRepository.findAll(predicate, new QPageRequest(page, size)), HttpStatus.OK);
     }
 
