@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,6 +46,7 @@ public class PatientController {
     }
 
     @GetMapping("/{id}")
+    @Secured("ROLE_SECRETARIA")
     public ResponseEntity<Patient> findById(@PathVariable("idUser") long idUser, @PathVariable("id") long id) {
         User usuario = userRepository.findOne(idUser);
 //        Paciente paciente = pacienteRepository.findOne(QPaciente.paciente.usuario.eq(usuario).and(QPaciente.paciente.id.eq(id)));
