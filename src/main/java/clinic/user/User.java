@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,6 @@ public class User extends BasicId {
     private String password;
     private boolean enable;
     @Enumerated
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<Role> roles;
 }
