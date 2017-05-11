@@ -46,7 +46,7 @@ public class PatientController {
     }
 
     @GetMapping("/{id}")
-    @Secured("ROLE_SECRETARIA")
+//    @Secured("ROLE_SECRETARIA")
     public ResponseEntity<Patient> findById(@PathVariable("idUser") long idUser, @PathVariable("id") long id) {
         User usuario = userRepository.findOne(idUser);
 //        Paciente paciente = pacienteRepository.findOne(QPaciente.paciente.usuario.eq(usuario).and(QPaciente.paciente.id.eq(id)));
