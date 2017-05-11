@@ -36,6 +36,7 @@ public class PatientController {
     UserRepository userRepository;
 
     @GetMapping
+    @Secured("ROLE_MEDICO")
     public ResponseEntity<Page<Patient>> getLista(@PathVariable("idUser") long idUser,
             @RequestParam("page") int page, @RequestParam("size") int size,
             @RequestParam("search") String search) {
