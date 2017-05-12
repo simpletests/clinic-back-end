@@ -27,6 +27,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @CrossOrigin
 @RestController
 @RequestMapping("/{idUser}/patient")
+@Secured("ROLE_MEDICO")
 public class PatientController {
 
     @Autowired
@@ -36,18 +37,16 @@ public class PatientController {
     UserRepository userRepository;
 
     @GetMapping
-    @Secured("ROLE_MEDICO")
     public ResponseEntity<Page<Patient>> getLista(@PathVariable("idUser") long idUser,
-            @RequestParam("page") int page, @RequestParam("size") int size,
-            @RequestParam("search") String search) {
+        @RequestParam("page") int page, @RequestParam("size") int size,
+        @RequestParam("search") String search) {
         User u = userRepository.findOne(idUser);
         Predicate predicate = QPatient.patient.name.likeIgnoreCase("%" + search + "%")
-                .and(QPatient.patient.user.eq(u));
+            .and(QPatient.patient.user.eq(u));
         return new ResponseEntity(patientRepository.findAll(predicate, new QPageRequest(page, size)), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-//    @Secured("ROLE_SECRETARIA")
     public ResponseEntity<Patient> findById(@PathVariable("idUser") long idUser, @PathVariable("id") long id) {
         User usuario = userRepository.findOne(idUser);
 //        Paciente paciente = pacienteRepository.findOne(QPaciente.paciente.usuario.eq(usuario).and(QPaciente.paciente.id.eq(id)));
