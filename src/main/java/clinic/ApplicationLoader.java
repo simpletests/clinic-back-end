@@ -35,10 +35,10 @@ public class ApplicationLoader implements ApplicationListener<ContextRefreshedEv
 
     @Autowired
     private UsersRepository usersRepository;
-    
+
     @Autowired
     private AuthoritiesRepository authoritiesRepository;
-    
+
     @Autowired
     private UserRepository userRepository;
 
@@ -47,7 +47,7 @@ public class ApplicationLoader implements ApplicationListener<ContextRefreshedEv
 
     @Autowired
     private HandbookRepository prontuarioRepository;
-    
+
     @Autowired
     private EventRepository eventRepository;
 
@@ -61,7 +61,7 @@ public class ApplicationLoader implements ApplicationListener<ContextRefreshedEv
         authoritiesRepository.save(new Authorities("wesley", "MEDICO"));
         authoritiesRepository.save(new Authorities("tomas", "MEDICO"));
         authoritiesRepository.save(new Authorities("arthur", "SECRETARIA"));
-        
+
         User medico1 = new User("Dr. Carlos da Silva Santos", "123");
         User medico2 = new User("Dra. Silvia Maria da Silva", "123");
         userRepository.save(medico1);
@@ -97,6 +97,10 @@ public class ApplicationLoader implements ApplicationListener<ContextRefreshedEv
 
         eventRepository.save(new Event(LocalDateTime.of(LocalDate.now(), LocalTime.of(14, 0)),
                 LocalDateTime.of(LocalDate.now(), LocalTime.of(14, 50)), sabrina));
+        eventRepository.save(new Event(LocalDateTime.of(LocalDate.now(), LocalTime.of(15, 0)),
+                LocalDateTime.of(LocalDate.now(), LocalTime.of(15, 50)), sabrina));
+        eventRepository.save(new Event(LocalDateTime.of(LocalDate.now(), LocalTime.of(16, 0)),
+                LocalDateTime.of(LocalDate.now(), LocalTime.of(16, 50)), sabrina));
         eventRepository.save(new Event(LocalDateTime.of(LocalDate.now().plusDays(3), LocalTime.of(14, 0)),
                 LocalDateTime.of(LocalDate.now().plusDays(3), LocalTime.of(14, 50)), sabrina));
     }
