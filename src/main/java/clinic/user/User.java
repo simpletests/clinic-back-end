@@ -22,6 +22,7 @@ import lombok.Setter;
 @Setter
 public class User extends BasicId {
 
+    private String name;
     private String username;
     private String password;
     private boolean enable;

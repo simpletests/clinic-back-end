@@ -55,7 +55,7 @@ public class ApplicationTests {
 
     @Before
     public void fillData() {
-        User medico1 = new User("Dr. Carlos da Silva Santos", "123", true, Arrays.asList(Role.MEDICO));
+        User medico1 = new User("Dr. Carlos da Silva Santos", "carlos", "123", true, Arrays.asList(Role.MEDICO));
         userRepository.save(medico1);
         Patient sabrina = new Patient(medico1, "Sabrina", "tomaslm@hotmail.com",
                 new Address("Rua São José", 100, "casa", "São Paulo", "Ribeirão Preto", "Brasil"),

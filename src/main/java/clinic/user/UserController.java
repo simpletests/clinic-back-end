@@ -31,7 +31,7 @@ public class UserController {
     private UserRepository userRepository;
 
     @GetMapping
-    public ResponseEntity<Page<User>> getLista(@RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("search") String search) {
+    public ResponseEntity<Page<User>> findAll(@RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("search") String search) {
         Predicate predicate = QUser.user.username.likeIgnoreCase("%" + search + "%");
         return new ResponseEntity<>(userRepository.findAll(predicate, new QPageRequest(page, size)), HttpStatus.OK);
     }
@@ -46,9 +46,9 @@ public class UserController {
         return new ResponseEntity<>(userRepository.save(user), HttpStatus.OK);
     }
 
-    @DeleteMapping
-    public ResponseEntity delete(@RequestBody User user) {
-        userRepository.delete(user);
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable Long id) {
+        userRepository.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
