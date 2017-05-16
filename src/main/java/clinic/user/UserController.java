@@ -1,6 +1,7 @@
 package clinic.user;
 
 import com.querydsl.core.types.Predicate;
+import javax.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.querydsl.QPageRequest;
@@ -46,9 +47,9 @@ public class UserController {
         return new ResponseEntity<>(userRepository.save(user), HttpStatus.OK);
     }
 
-    @DeleteMapping
-    public ResponseEntity delete(@RequestBody User user) {
-        userRepository.delete(user);
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable Long id) {
+        userRepository.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
