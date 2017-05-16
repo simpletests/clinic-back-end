@@ -44,12 +44,12 @@ public class ApplicationLoader implements ApplicationListener<ContextRefreshedEv
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent e) {
-        userRepository.save(new User("wesley", "123", true, Arrays.asList(Role.ADMINISTRADOR)));
-        userRepository.save(new User("tomas", "123", true, Arrays.asList(Role.ADMINISTRADOR)));
-        userRepository.save(new User("arthur", "123", true, Arrays.asList(Role.SECRETARIA)));
+        userRepository.save(new User("wesley", "wesley", "123", true, Arrays.asList(Role.ADMINISTRADOR, Role.MEDICO, Role.SECRETARIA)));
+        userRepository.save(new User("tomas", "tomas", "123", true, Arrays.asList(Role.ADMINISTRADOR)));
+        userRepository.save(new User("arthur", "arthur", "123", true, Arrays.asList(Role.SECRETARIA)));
         
-        User medico1 = new User("Dr. Carlos da Silva Santos", "123", true, Arrays.asList(Role.MEDICO));
-        User medico2 = new User("Dra. Silvia Maria da Silva", "123", true, Arrays.asList(Role.MEDICO));
+        User medico1 = new User("Dr. Carlos da Silva Santos", "carlos", "123", true, Arrays.asList(Role.MEDICO));
+        User medico2 = new User("Dra. Silvia Maria da Silva", "silvia", "123", true, Arrays.asList(Role.MEDICO));
         userRepository.save(medico1);
 
         userRepository.save(medico2);

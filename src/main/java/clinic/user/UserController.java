@@ -32,7 +32,7 @@ public class UserController {
     private UserRepository userRepository;
 
     @GetMapping
-    public ResponseEntity<Page<User>> getLista(@RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("search") String search) {
+    public ResponseEntity<Page<User>> findAll(@RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("search") String search) {
         Predicate predicate = QUser.user.username.likeIgnoreCase("%" + search + "%");
         return new ResponseEntity<>(userRepository.findAll(predicate, new QPageRequest(page, size)), HttpStatus.OK);
     }

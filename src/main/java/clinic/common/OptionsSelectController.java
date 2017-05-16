@@ -1,5 +1,6 @@
 package clinic.common;
 
+import clinic.user.Role;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -20,5 +21,10 @@ public class OptionsSelectController {
     @GetMapping("/gender")
     public List<Gender> opcoesSexo() {
         return Stream.of(Gender.values()).collect(Collectors.toList());
+    }
+    
+    @GetMapping("/roles")
+    public List<Role> opcoesRoles() {
+        return Stream.of(Role.values()).collect(Collectors.toList());
     }
 }
