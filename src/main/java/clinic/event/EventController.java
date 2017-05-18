@@ -3,6 +3,7 @@ package clinic.event;
 import clinic.user.User;
 import clinic.user.UserRepository;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,7 @@ public class EventController {
             return new ResponseEntity(retorno, HttpStatus.OK);
         } else {
             return new ResponseEntity(eventRepository
-                    .findByPatientUserAndStartBetween(user, LocalDateTime.MIN, LocalDateTime.MAX), HttpStatus.OK);
+                    .findByPatientUserAndStartBetween(user, LocalDateTime.of(0, Month.JANUARY, 1, 0, 0), LocalDateTime.MAX), HttpStatus.OK);
         }
 
     }
@@ -67,7 +68,11 @@ public class EventController {
 
     @GetMapping("/{id}")
     public Event getEvent(@PathVariable("id") Long id) {
-        return eventRepository.findOne(id);
+        if (id < 0) {
+            return new Event();
+        } else {
+            return eventRepository.findOne(id);
+        }
     }
 
 }
