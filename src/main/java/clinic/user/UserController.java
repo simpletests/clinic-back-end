@@ -42,16 +42,6 @@ public class UserController {
         return new ResponseEntity<>(userRepository.findOne(id), HttpStatus.OK);
     }
 
-    @GetMapping("/getUser")
-    public ResponseEntity<User> findByUsernamePassword(@RequestParam String username, @RequestParam String password) {
-        Optional<User> opUser = userRepository.findByUsernameAndPassword(username, password);
-        if (opUser.isPresent()) {
-            return new ResponseEntity<>(opUser.get(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
     @PostMapping
     public ResponseEntity<User> save(@RequestBody User user) {
         return new ResponseEntity<>(userRepository.save(user), HttpStatus.OK);
