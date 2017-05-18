@@ -8,12 +8,9 @@ import clinic.handbook.Handbook;
 import clinic.handbook.HandbookRepository;
 import clinic.patient.Patient;
 import clinic.patient.PatientRepository;
+import clinic.user.Role;
 import clinic.user.User;
 import clinic.user.UserRepository;
-import clinic.usuario.Authorities;
-import clinic.usuario.AuthoritiesRepository;
-import clinic.usuario.Users;
-import clinic.usuario.UsersRepository;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -34,12 +31,6 @@ import org.springframework.stereotype.Component;
 public class ApplicationLoader implements ApplicationListener<ContextRefreshedEvent> {
 
     @Autowired
-    private UsersRepository usersRepository;
-
-    @Autowired
-    private AuthoritiesRepository authoritiesRepository;
-
-    @Autowired
     private UserRepository userRepository;
 
     @Autowired
@@ -53,17 +44,12 @@ public class ApplicationLoader implements ApplicationListener<ContextRefreshedEv
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent e) {
-        usersRepository.save(new Users("master", "123", true));
-        usersRepository.save(new Users("wesley", "123", true));
-        usersRepository.save(new Users("tomas", "123", true));
-        usersRepository.save(new Users("arthur", "123", true));
-        authoritiesRepository.save(new Authorities("master", "MASTER"));
-        authoritiesRepository.save(new Authorities("wesley", "MEDICO"));
-        authoritiesRepository.save(new Authorities("tomas", "MEDICO"));
-        authoritiesRepository.save(new Authorities("arthur", "SECRETARIA"));
-
-        User medico1 = new User("Dr. Carlos da Silva Santos", "123");
-        User medico2 = new User("Dra. Silvia Maria da Silva", "123");
+        userRepository.save(new User("wesley", "wesley", "123", true, Arrays.asList(Role.ADMINISTRADOR, Role.MEDICO, Role.SECRETARIA)));
+        userRepository.save(new User("tomas", "tomas", "123", true, Arrays.asList(Role.ADMINISTRADOR)));
+        userRepository.save(new User("arthur", "arthur", "123", true, Arrays.asList(Role.SECRETARIA)));
+        
+        User medico1 = new User("Dr. Carlos da Silva Santos", "carlos", "123", true, Arrays.asList(Role.MEDICO));
+        User medico2 = new User("Dra. Silvia Maria da Silva", "silvia", "123", true, Arrays.asList(Role.MEDICO));
         userRepository.save(medico1);
 
         userRepository.save(medico2);
