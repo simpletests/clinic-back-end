@@ -1,6 +1,7 @@
 package clinic.user;
 
 import clinic.basic.BasicId;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -24,6 +25,7 @@ public class User extends BasicId {
 
     private String name;
     private String username;
+    @JsonIgnore
     private String password;
     private boolean enabled;
     @Enumerated
