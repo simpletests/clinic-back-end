@@ -1,6 +1,7 @@
 package clinic.user;
 
 import com.querydsl.core.types.Predicate;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.querydsl.QPageRequest;
@@ -35,10 +36,20 @@ public class UserController {
         Predicate predicate = QUser.user.username.likeIgnoreCase("%" + search + "%");
         return new ResponseEntity<>(userRepository.findAll(predicate, new QPageRequest(page, size)), HttpStatus.OK);
     }
-    
+
     @GetMapping("/{id}")
     public ResponseEntity<User> findOne(@PathVariable Long id) {
         return new ResponseEntity<>(userRepository.findOne(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/getUser")
+    public ResponseEntity<User> findByUsernamePassword(@RequestParam String username, @RequestParam String password) {
+        Optional<User> opUser = userRepository.findByUsernameAndPassword(username, password);
+        if (opUser.isPresent()) {
+            return new ResponseEntity<>(opUser.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping
