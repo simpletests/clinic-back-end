@@ -64,9 +64,12 @@ public class PatientController {
     }
 
     @PostMapping
-    public void createPaciente(@RequestBody Patient paciente, UriComponentsBuilder uriBuilder) {
-        paciente = patientRepository.save(paciente);
-        if (paciente != null) {
+    public void saveOrUpdate(@PathVariable("idUser") Long idUser,
+            @RequestBody Patient patient, UriComponentsBuilder uriBuilder) {
+        User user = userRepository.findOne(idUser);
+        patient.setUser(user);
+        patient = patientRepository.save(patient);
+        if (patient != null) {
         } else {
         }
     }
