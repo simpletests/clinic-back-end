@@ -5,7 +5,6 @@ import clinic.patient.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @CrossOrigin
 @RestController
-@RequestMapping("{idPatient}/handbook")
+@RequestMapping("{idUser}/{idPatient}/handbook")
 public class HandbookController {
 
     @Autowired
@@ -34,8 +33,8 @@ public class HandbookController {
     public ResponseEntity<Page<Handbook>> getLista(@PathVariable("idPatient") long idPaciente,
             @RequestParam("page") int page, @RequestParam("size") int size) {
         Patient paciente = pacienteRepository.findOne((long) idPaciente);
-        Page<Handbook> prontuarios = handbookRepository.findByPatient(paciente,
-                new PageRequest(page, size, Sort.Direction.ASC, "data"));
+        Page<Handbook> prontuarios = handbookRepository.findByPatientOrderByDateTime(
+                paciente, new PageRequest(page, size));
         if (prontuarios.getNumberOfElements() > 0) {
             return new ResponseEntity(prontuarios, HttpStatus.OK);
         } else {

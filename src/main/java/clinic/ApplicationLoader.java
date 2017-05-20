@@ -14,6 +14,7 @@ import clinic.user.UserRepository;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -47,7 +48,7 @@ public class ApplicationLoader implements ApplicationListener<ContextRefreshedEv
         userRepository.save(new User("wesley", "wesley", "123", true, Arrays.asList(Role.ADMINISTRADOR, Role.MEDICO, Role.SECRETARIA)));
         userRepository.save(new User("tomas", "tomas", "123", true, Arrays.asList(Role.ADMINISTRADOR)));
         userRepository.save(new User("arthur", "arthur", "123", true, Arrays.asList(Role.SECRETARIA)));
-        
+
         User medico1 = new User("Dr. Carlos da Silva Santos", "carlos", "123", true, Arrays.asList(Role.MEDICO));
         User medico2 = new User("Dra. Silvia Maria da Silva", "silvia", "123", true, Arrays.asList(Role.MEDICO));
         userRepository.save(medico1);
@@ -81,13 +82,15 @@ public class ApplicationLoader implements ApplicationListener<ContextRefreshedEv
         }
         pacienteRepository.save(pacientes);
 
+        Handbook hb = new Handbook(sabrina, LocalDateTime.of(LocalDate.of(2017, Month.APRIL, 30), LocalTime.of(16, 30)), "Observations");
+
         eventRepository.save(new Event(LocalDateTime.of(LocalDate.now(), LocalTime.of(14, 0)),
-                LocalDateTime.of(LocalDate.now(), LocalTime.of(14, 50)), sabrina));
+                LocalDateTime.of(LocalDate.now(), LocalTime.of(14, 50)), sabrina, hb));
         eventRepository.save(new Event(LocalDateTime.of(LocalDate.now(), LocalTime.of(15, 0)),
-                LocalDateTime.of(LocalDate.now(), LocalTime.of(15, 50)), sabrina));
+                LocalDateTime.of(LocalDate.now(), LocalTime.of(15, 50)), sabrina, null));
         eventRepository.save(new Event(LocalDateTime.of(LocalDate.now(), LocalTime.of(16, 0)),
-                LocalDateTime.of(LocalDate.now(), LocalTime.of(16, 50)), sabrina));
+                LocalDateTime.of(LocalDate.now(), LocalTime.of(16, 50)), sabrina, new Handbook()));
         eventRepository.save(new Event(LocalDateTime.of(LocalDate.now().plusDays(3), LocalTime.of(14, 0)),
-                LocalDateTime.of(LocalDate.now().plusDays(3), LocalTime.of(14, 50)), sabrina));
+                LocalDateTime.of(LocalDate.now().plusDays(3), LocalTime.of(14, 50)), sabrina, null));
     }
 }
