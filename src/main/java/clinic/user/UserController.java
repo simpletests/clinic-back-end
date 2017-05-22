@@ -1,7 +1,6 @@
 package clinic.user;
 
 import com.querydsl.core.types.Predicate;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.querydsl.QPageRequest;
@@ -33,7 +32,7 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<Page<User>> findAll(@RequestParam("page") int page, @RequestParam("size") int size, @RequestParam("search") String search) {
-        Predicate predicate = QUser.user.username.likeIgnoreCase("%" + search + "%");
+        Predicate predicate = QUser.user.name.likeIgnoreCase("%" + search + "%");
         return new ResponseEntity<>(userRepository.findAll(predicate, new QPageRequest(page, size)), HttpStatus.OK);
     }
 

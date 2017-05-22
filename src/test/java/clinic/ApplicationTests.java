@@ -62,9 +62,9 @@ public class ApplicationTests {
                 22, Gender.FEMININO, "3202-3063", "99332-1131");
         patientRepository.save(sabrina);
         eventRepository.save(new Event(LocalDateTime.of(LocalDate.now(), LocalTime.of(14, 0)),
-                LocalDateTime.of(LocalDate.now(), LocalTime.of(14, 50)), sabrina));
+                LocalDateTime.of(LocalDate.now(), LocalTime.of(14, 50)), sabrina, null));
         eventRepository.save(new Event(LocalDateTime.of(LocalDate.now().plusDays(3), LocalTime.of(14, 0)),
-                LocalDateTime.of(LocalDate.now().plusDays(3), LocalTime.of(14, 50)), sabrina));
+                LocalDateTime.of(LocalDate.now().plusDays(3), LocalTime.of(14, 50)), sabrina, null));
     }
 
     @Test
