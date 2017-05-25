@@ -28,6 +28,5 @@ public class User extends BasicId {
     private String password;
     private boolean enabled;
     @Enumerated
-    @ElementCollection(fetch = FetchType.EAGER)
-    private List<Role> roles;
+    private Role role;
 }
