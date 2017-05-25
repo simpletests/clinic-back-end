@@ -66,9 +66,6 @@ public class ApplicationLoader implements ApplicationListener<ContextRefreshedEv
         pacienteRepository.save(tomas);
         pacienteRepository.save(sabrina);
         pacienteRepository.save(wesley);
-        prontuarioRepository.save(new Handbook(tomas, LocalDateTime.now().minusDays(60), "Fadiga muscular"));
-        prontuarioRepository.save(new Handbook(tomas, LocalDateTime.now().minusDays(30), "Sintomas aparentes de gripe"));
-        prontuarioRepository.save(new Handbook(sabrina, LocalDateTime.now().minusDays(30), "Febre de 38 graus"));
 
         List<Patient> pacientes = new ArrayList();
         List<String> listaNomes = Arrays.asList("Tomas", "Wesley", "Arthur");
@@ -82,12 +79,12 @@ public class ApplicationLoader implements ApplicationListener<ContextRefreshedEv
         pacienteRepository.save(pacientes);
 
         eventRepository.save(new Event(LocalDateTime.of(LocalDate.now(), LocalTime.of(14, 0)),
-                LocalDateTime.of(LocalDate.now(), LocalTime.of(14, 50)), sabrina));
+                LocalDateTime.of(LocalDate.now(), LocalTime.of(14, 50)), sabrina, new Handbook(sabrina, LocalDateTime.now().minusDays(30), "Febre de 38 graus")));
         eventRepository.save(new Event(LocalDateTime.of(LocalDate.now(), LocalTime.of(15, 0)),
-                LocalDateTime.of(LocalDate.now(), LocalTime.of(15, 50)), sabrina));
+                LocalDateTime.of(LocalDate.now(), LocalTime.of(15, 50)), sabrina, new Handbook(sabrina, LocalDateTime.now().minusDays(60), "Fadiga muscular")));
         eventRepository.save(new Event(LocalDateTime.of(LocalDate.now(), LocalTime.of(16, 0)),
-                LocalDateTime.of(LocalDate.now(), LocalTime.of(16, 50)), sabrina));
+                LocalDateTime.of(LocalDate.now(), LocalTime.of(16, 50)), sabrina, new Handbook()));
         eventRepository.save(new Event(LocalDateTime.of(LocalDate.now().plusDays(3), LocalTime.of(14, 0)),
-                LocalDateTime.of(LocalDate.now().plusDays(3), LocalTime.of(14, 50)), sabrina));
+                LocalDateTime.of(LocalDate.now().plusDays(3), LocalTime.of(14, 50)), sabrina, new Handbook(sabrina, LocalDateTime.now().minusDays(30), "Sintomas aparentes de gripe")));
     }
 }

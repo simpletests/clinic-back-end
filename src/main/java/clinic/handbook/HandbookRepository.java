@@ -12,5 +12,5 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  */
 public interface HandbookRepository extends PagingAndSortingRepository<Handbook, Long>, QueryDslPredicateExecutor<Handbook> {
 
-    public Page<Handbook> findByPatient(Patient paciente, Pageable pageable);
+    public Page<Handbook> findByPatientOrderByDateTime(Patient paciente, Pageable pageable);
 }

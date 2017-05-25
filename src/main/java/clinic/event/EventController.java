@@ -57,7 +57,7 @@ public class EventController {
     }
 
     @PostMapping
-    public void createNew(@PathVariable("idUser") Long idUser, @RequestBody Event event) {
+    public void saveOrUpdate(@PathVariable("idUser") Long idUser, @RequestBody Event event) {
         eventRepository.save(event);
     }
 
