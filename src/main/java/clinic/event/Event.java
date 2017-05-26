@@ -4,8 +4,6 @@ import clinic.basic.BasicId;
 import clinic.handbook.Handbook;
 import clinic.patient.Patient;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import java.time.LocalDateTime;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -25,7 +23,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonInclude(Include.ALWAYS)
 public class Event extends BasicId {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING)
