@@ -1,7 +1,7 @@
 package clinic;
 
-import clinic.common.Address;
 import clinic.common.Gender;
+import clinic.common.address.Address;
 import clinic.event.Event;
 import clinic.event.EventRepository;
 import clinic.handbook.Handbook;
@@ -14,6 +14,7 @@ import clinic.user.UserRepository;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -44,25 +45,25 @@ public class ApplicationLoader implements ApplicationListener<ContextRefreshedEv
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent e) {
-        userRepository.save(new User("wesley", "wesley", "123", true, Arrays.asList(Role.ADMINISTRADOR, Role.MEDICO, Role.SECRETARIA)));
-        userRepository.save(new User("tomas", "tomas", "123", true, Arrays.asList(Role.ADMINISTRADOR)));
-        userRepository.save(new User("arthur", "arthur", "123", true, Arrays.asList(Role.SECRETARIA)));
+        userRepository.save(new User("wesley", "123", true, Arrays.asList(Role.ADMINISTRADOR, Role.MEDICO, Role.SECRETARIA)));
+        userRepository.save(new User("tomas", "123", true, Arrays.asList(Role.ADMINISTRADOR)));
+        userRepository.save(new User("arthur", "123", true, Arrays.asList(Role.SECRETARIA)));
 
-        User medico1 = new User("Dr. Carlos da Silva Santos", "carlos", "123", true, Arrays.asList(Role.MEDICO));
-        User medico2 = new User("Dra. Silvia Maria da Silva", "silvia", "123", true, Arrays.asList(Role.MEDICO));
+        User medico1 = new User("carlos", "123", true, Arrays.asList(Role.MEDICO));
+        User medico2 = new User("silvia", "123", true, Arrays.asList(Role.MEDICO));
         userRepository.save(medico1);
 
         userRepository.save(medico2);
 
         Patient tomas = new Patient(medico1, "Tomas", "tomaslm@hotmail.com",
-                new Address("Rua São José", 100, "casa", "São Paulo", "Ribeirão Preto", "Brasil"),
-                22, Gender.MASCULINO, "3202-3063", "99222-1131");
+                new Address("Rua São José", 100, "casa", null),
+                LocalDate.of(1994, Month.JULY, 06), Gender.MALE, "3202-3063", "99222-1131");
         Patient sabrina = new Patient(medico1, "Sabrina", "tomaslm@hotmail.com",
-                new Address("Rua São José", 100, "casa", "São Paulo", "Ribeirão Preto", "Brasil"),
-                22, Gender.FEMININO, "3202-3063", "99332-1131");
+                new Address("Rua São José", 100, "casa", null),
+                LocalDate.of(1994, Month.JUNE, 16), Gender.FEMALE, "3202-3063", "99332-1131");
         Patient wesley = new Patient(medico2, "Wesley", "wesley@hotmail.com",
-                new Address("Rua do Sertão", 250, "apto 3", "São Paulo", "Sertãozinho", "Brasil"),
-                25, Gender.MASCULINO, "3111-3543", "98742-6985");
+                new Address("Rua do Sertão", 250, "apto 3", null),
+                LocalDate.of(1990, Month.MARCH, 20), Gender.MALE, "3111-3543", "98742-6985");
         pacienteRepository.save(tomas);
         pacienteRepository.save(sabrina);
         pacienteRepository.save(wesley);
@@ -72,8 +73,8 @@ public class ApplicationLoader implements ApplicationListener<ContextRefreshedEv
         for (int i = 0; i < 100; i++) {
             pacientes.add(new Patient(medico1, listaNomes.get(new Random().nextInt(listaNomes.size())) + " Clone " + i,
                     "tomaslm@hotmail.com",
-                    new Address("Rua São José", 100, "casa", "São Paulo", "Ribeirão Preto", "Brasil"),
-                    22, Gender.MASCULINO,
+                    new Address("Rua São José", 100, "casa", null),
+                    LocalDate.of(1950, Month.MARCH, 25), Gender.MALE,
                     "3202-3063", "99222-1131"));
         }
         pacienteRepository.save(pacientes);

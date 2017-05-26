@@ -1,6 +1,6 @@
 package clinic.user;
 
-import clinic.basic.BasicId;
+import clinic.common.Person;
 import java.util.List;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -10,7 +10,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
  *
@@ -21,9 +20,8 @@ import org.codehaus.jackson.annotate.JsonProperty;
 @AllArgsConstructor
 @Getter
 @Setter
-public class User extends BasicId {
+public class User extends Person {
 
-    private String name;
     private String username;
     private String password;
     private boolean enabled;

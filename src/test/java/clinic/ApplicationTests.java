@@ -15,8 +15,8 @@
  */
 package clinic;
 
-import clinic.common.Address;
 import clinic.common.Gender;
+import clinic.common.address.Address;
 import clinic.event.Event;
 import clinic.event.EventRepository;
 import clinic.patient.Patient;
@@ -27,6 +27,7 @@ import clinic.user.UserRepository;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Before;
@@ -55,11 +56,11 @@ public class ApplicationTests {
 
     @Before
     public void fillData() {
-        User medico1 = new User("Dr. Carlos da Silva Santos", "carlos", "123", true, Arrays.asList(Role.MEDICO));
+        User medico1 = new User("carlos", "123", true, Arrays.asList(Role.MEDICO));
         userRepository.save(medico1);
         Patient sabrina = new Patient(medico1, "Sabrina", "tomaslm@hotmail.com",
-                new Address("Rua São José", 100, "casa", "São Paulo", "Ribeirão Preto", "Brasil"),
-                22, Gender.FEMININO, "3202-3063", "99332-1131");
+                new Address("Rua São José", 100, "casa", null),
+                LocalDate.of(1994, Month.JUNE, 16), Gender.FEMALE, "3202-3063", "99332-1131");
         patientRepository.save(sabrina);
         eventRepository.save(new Event(LocalDateTime.of(LocalDate.now(), LocalTime.of(14, 0)),
                 LocalDateTime.of(LocalDate.now(), LocalTime.of(14, 50)), sabrina, null));

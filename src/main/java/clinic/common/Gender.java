@@ -10,7 +10,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum Gender {
-    MASCULINO("Masculino"), FEMININO("Feminino");
+    MALE("Masculino"), FEMALE("Feminino");
 
     String mensagem;
 

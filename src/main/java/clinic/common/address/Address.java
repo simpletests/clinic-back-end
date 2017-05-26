@@ -1,7 +1,9 @@
-package clinic.common;
+package clinic.common.address;
 
 import clinic.basic.BasicId;
+import java.util.Optional;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,9 +21,8 @@ public class Address extends BasicId {
     String street;
     Integer number;
     String complement;
-    String city;
-    String country;
-    String state;
+    @ManyToOne(optional = false)
+    PostalCode postalCode;
 
     public String getLabel() {
         StringBuilder sb = new StringBuilder();
@@ -31,11 +32,7 @@ public class Address extends BasicId {
                 .append(", ")
                 .append(complement)
                 .append(", ")
-                .append(state)
-                .append(", ")
-                .append(city)
-                .append(", ")
-                .append(country);
+                .append(Optional.ofNullable(getPostalCode()).map(PostalCode::getLabel).orElse(""));
         return sb.toString();
     }
 

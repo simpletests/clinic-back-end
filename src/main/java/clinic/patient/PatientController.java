@@ -63,6 +63,12 @@ public class PatientController {
         }
     }
 
+    @GetMapping("/new")
+    public ResponseEntity<Patient> getNew(@PathVariable("idUser") long idUser) {
+        User usuario = userRepository.findOne(idUser);
+        return new ResponseEntity(new Patient(), HttpStatus.OK);
+    }
+
     @PostMapping
     public void saveOrUpdate(@PathVariable("idUser") Long idUser,
             @RequestBody Patient patient, UriComponentsBuilder uriBuilder) {

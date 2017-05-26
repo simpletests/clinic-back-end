@@ -1,13 +1,12 @@
 package clinic.patient;
 
-import clinic.basic.BasicId;
-import clinic.common.Address;
 import clinic.common.Gender;
+import clinic.common.Person;
+import clinic.common.address.Address;
 import clinic.user.User;
-import javax.persistence.CascadeType;
+import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,23 +21,15 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Patient extends BasicId {
+public class Patient extends Person {
+
+    public Patient(User user, String name, String email, Address address,
+            LocalDate birthdate, Gender gender, String phone, String cellphone) {
+        super(name, email, address, birthdate, gender, phone, cellphone);
+        this.user = user;
+    }
 
     @ManyToOne
     private User user;
 
-    private String name;
-
-    private String email;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    private Address address;
-
-    private Integer age;
-
-    private Gender gender;
-
-    private String phone;
-
-    private String cellphone;
 }
