@@ -26,6 +26,5 @@ public class User extends Person {
     private String password;
     private boolean enabled;
     @Enumerated
-    @ElementCollection(fetch = FetchType.EAGER)
-    private List<Role> roles;
+    private Role role;
 }

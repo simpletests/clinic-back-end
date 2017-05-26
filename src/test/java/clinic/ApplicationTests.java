@@ -28,7 +28,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
-import java.util.Arrays;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
@@ -56,7 +55,7 @@ public class ApplicationTests {
 
     @Before
     public void fillData() {
-        User medico1 = new User("carlos", "123", true, Arrays.asList(Role.MEDICO));
+        User medico1 = new User("carlos", "123", true, Role.MEDICO);
         userRepository.save(medico1);
         Patient sabrina = new Patient(medico1, "Sabrina", "tomaslm@hotmail.com",
                 new Address("Rua São José", 100, "casa", null),
