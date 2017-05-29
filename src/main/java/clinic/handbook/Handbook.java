@@ -25,6 +25,8 @@ public class Handbook extends BasicId {
     @ManyToOne
     Patient patient;
 
+//    @ManyToOne
+//    User doctor;
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     LocalDateTime dateTime;
 

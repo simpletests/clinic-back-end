@@ -21,7 +21,7 @@ public class Address extends BasicId {
     String street;
     Integer number;
     String complement;
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true) //FIXME mudar para false
     PostalCode postalCode;
 
     public String getLabel() {
