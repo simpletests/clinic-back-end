@@ -4,7 +4,6 @@ import clinic.user.User;
 import clinic.user.UserRepository;
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,8 +28,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequestMapping("{idUser}/event")
 public class EventController {
 
-    final DateTimeFormatter javascriptFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-
     @Autowired
     EventRepository eventRepository;
 
@@ -39,15 +36,14 @@ public class EventController {
 
     @GetMapping
     public ResponseEntity<List<Event>> getLista(@PathVariable("idUser") Long idUser,
-            @RequestParam(value = "start", required = false) String start,
-            @RequestParam(value = "end", required = false) String end) {
+            @RequestParam(value = "start", required = false) LocalDateTime start,
+            @RequestParam(value = "end", required = false) LocalDateTime end) {
 //        start = LocalDate.of(2016, 3, 1).atStartOfDay().toString();
 //        end = LocalDate.of(2018, 5, 1).atStartOfDay().toString();
         User user = usuarioRepository.findOne(idUser);
         if (start != null && end != null) {
             List<Event> retorno = eventRepository
-                    .findByPatientUserAndStartBetween(user, LocalDateTime.parse(start, javascriptFormatter),
-                            LocalDateTime.parse(end, javascriptFormatter));
+                    .findByPatientUserAndStartBetween(user, start, end);
             return new ResponseEntity(retorno, HttpStatus.OK);
         } else {
             return new ResponseEntity(eventRepository
@@ -68,11 +64,12 @@ public class EventController {
 
     @GetMapping("/{id}")
     public Event getEvent(@PathVariable("id") Long id) {
-        if (id < 0) {
-            return new Event();
-        } else {
-            return eventRepository.findOne(id);
-        }
+        return eventRepository.findOne(id);
+    }
+
+    @GetMapping("/new")
+    public Event getNew() {
+        return new Event();
     }
 
 }

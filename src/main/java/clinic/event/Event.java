@@ -26,7 +26,7 @@ import lombok.Setter;
 public class Event extends BasicId {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING)
-    LocalDateTime start;
+    LocalDateTime start = LocalDateTime.now();
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     LocalDateTime end;
     @ManyToOne
