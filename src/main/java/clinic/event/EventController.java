@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -36,11 +37,15 @@ public class EventController {
 
     @GetMapping
     public ResponseEntity<List<Event>> getLista(@PathVariable("idUser") Long idUser,
-            @RequestParam(value = "start", required = false) LocalDateTime start,
-            @RequestParam(value = "end", required = false) LocalDateTime end) {
+            @RequestParam(value = "start", required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime start,
+            @RequestParam(value = "end", required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime end) {
 //        start = LocalDate.of(2016, 3, 1).atStartOfDay().toString();
 //        end = LocalDate.of(2018, 5, 1).atStartOfDay().toString();
         User user = usuarioRepository.findOne(idUser);
+        start = null;
+        end = null;
         if (start != null && end != null) {
             List<Event> retorno = eventRepository
                     .findByPatientUserAndStartBetween(user, start, end);
