@@ -3,7 +3,6 @@ package clinic.event;
 import clinic.basic.BasicId;
 import clinic.handbook.Handbook;
 import clinic.patient.Patient;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -25,10 +24,9 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Event extends BasicId {
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
     LocalDateTime start = LocalDateTime.now();
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
     LocalDateTime end;
+
     @ManyToOne
     Patient patient;
     @OneToOne(cascade = CascadeType.ALL)
