@@ -68,16 +68,16 @@ public class ApplicationLoader implements ApplicationListener<ContextRefreshedEv
         pacienteRepository.save(sabrina);
         pacienteRepository.save(wesley);
 
-        List<Patient> pacientes = new ArrayList();
-        List<String> listaNomes = Arrays.asList("Tomas", "Wesley", "Arthur");
-        for (int i = 0; i < 100; i++) {
-            pacientes.add(new Patient(medico1, listaNomes.get(new Random().nextInt(listaNomes.size())) + " Clone " + i,
-                    "tomaslm@hotmail.com",
-                    new Address("Rua São José", 100, "casa", null),
-                    LocalDate.of(1950, Month.MARCH, 25), Gender.MALE,
-                    "3202-3063", "99222-1131"));
-        }
-        pacienteRepository.save(pacientes);
+//        List<Patient> pacientes = new ArrayList();
+//        List<String> listaNomes = Arrays.asList("Tomas", "Wesley", "Arthur");
+//        for (int i = 0; i < 100; i++) {
+//            pacientes.add(new Patient(medico1, listaNomes.get(new Random().nextInt(listaNomes.size())) + " Clone " + i,
+//                    "tomaslm@hotmail.com",
+//                    new Address("Rua São José", 100, "casa", null),
+//                    LocalDate.of(1950, Month.MARCH, 25), Gender.MALE,
+//                    "3202-3063", "99222-1131"));
+//        }
+//        pacienteRepository.save(pacientes);
 
         eventRepository.save(new Event(LocalDateTime.of(LocalDate.now(), LocalTime.of(14, 0)),
                 LocalDateTime.of(LocalDate.now(), LocalTime.of(14, 50)), sabrina, new Handbook(sabrina, LocalDateTime.now().minusDays(30), "", "", "", "", "", "", "Febre de 38 graus")));
