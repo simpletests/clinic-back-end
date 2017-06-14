@@ -2,7 +2,6 @@ package clinic.handbook;
 
 import clinic.basic.BasicId;
 import clinic.patient.Patient;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -27,15 +26,19 @@ public class Handbook extends BasicId {
 
 //    @ManyToOne
 //    User doctor;
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
     LocalDateTime dateTime;
+
+    String queixaPrincipal;
+
+    String historiaDoencaAtual;
+
+    String antecedentesFisiologicosPatologicos;
+
+    String historiaPatologica;
+
+    String habitosDeVida;
 
     String observations;
 
-    public String getResume() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Patient was with a suspect of ");
-        sb.append(", with the follow observations ").append(getObservations());
-        return sb.toString();
-    }
+    String resumo;
 }
