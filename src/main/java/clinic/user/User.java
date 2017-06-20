@@ -1,9 +1,9 @@
 package clinic.user;
 
 import clinic.common.Person;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +14,7 @@ import lombok.Setter;
  * @author Tomas
  */
 @Entity
+@Table(name = "user_test")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

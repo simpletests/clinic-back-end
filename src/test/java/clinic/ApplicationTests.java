@@ -30,6 +30,7 @@ import java.time.LocalTime;
 import java.time.Month;
 import java.util.List;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +68,7 @@ public class ApplicationTests {
                 LocalDateTime.of(LocalDate.now().plusDays(3), LocalTime.of(14, 50)), sabrina, null));
     }
 
+    @Ignore
     @Test
     public void test() {
         User usr = userRepository.findOne(1L);
