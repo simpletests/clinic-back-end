@@ -14,7 +14,7 @@ import lombok.Setter;
  * @author Tomas
  */
 @Entity
-@Table(name = "user_test")
+@Table(name = "user_")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
